@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--****************************** BindingCollectionAdapters ******************************-->
+    <attr name="items" format="reference" />
+    <attr name="itemBinding" format="reference" />
+    <attr name="adapter" format="reference" />
+    <attr name="itemIds" format="reference" />
+    <declare-styleable name="AdapterView">
+        <attr name="items" />
+        <attr name="itemBinding" />
+        <attr name="adapter" />
+        <attr name="itemIds" />
+        <attr name="itemTypeCount" format="reference" />
+        <attr name="itemDropDownLayout" format="reference" />
+        <attr name="itemIsEnabled" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="RecyclerView">
+        <attr name="items" />
+        <attr name="itemBinding" />
+        <attr name="adapter" />
+        <attr name="itemIds" />
+        <attr name="viewHolder" format="reference" />
+        <attr name="diffConfig" format="reference" />
+        <attr name="layoutManager" format="reference" />
+        <attr name="lineManager" format="reference" />
+        <attr name="itemAnimator" format="reference" />
+    </declare-styleable>
+    <!--****************************** BindingCollectionAdapters ******************************-->
+
+    <declare-styleable name="ImageView">
+        <attr name="src" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="View">
+        <attr name="onClickCommand" format="reference" />
+        <attr name="isThrottleFirst" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="NiceToolbar">
+        <attr name="toolbar_title" format="string" />
+        <attr name="toolbar_navigation_text" format="string" />
+        <attr name="toolbar_navigation_icon" format="reference" />
+
+        <attr name="onClickNavigation" format="reference" />
+    </declare-styleable>
+</resources>

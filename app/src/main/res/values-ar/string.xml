@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">البرتقالي</string>
+    <string name="home">منزل</string>
+    <string name="category">تصنيف</string>
+    <string name="find">اكتشاف</string>
+    <string name="mine">لي</string>
+
+    <string name="setting">الإعدادات</string>
+    <string name="cancel">إلغاء</string>
+    <string name="languages">اللغات</string>
+
+</resources>

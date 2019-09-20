@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+// gradle 配置
+def gradleProp = getMyGradleProperties()
+// config.properties配置解析器
+def configProp = getMyConfigProperties(gradleProp)
+
+android {
+    compileSdkVersion getAppCompileSdkVersion(gradleProp)
+    // App名称
+    def appName = getAppName(configProp)
+    // App唯一Id
+    def appId = getMyApplicationId(configProp, appName)
+    // App版本名称
+    def appVersionName = getAppVersionName(gradleProp, configProp)
+    // App版本号
+    def appVersionCode = getAppVersionCode(configProp)
+
+    defaultConfig {
+        applicationId appId
+        minSdkVersion getAppMinSdkVersion(gradleProp)
+        targetSdkVersion getAppTargetSdkVersion(gradleProp)
+        versionCode appVersionCode
+        versionName appVersionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /* 编译配置项 */
+    compileOptions {
+        /* Java8支持 */
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(path: ':base')
+}
