@@ -9,13 +9,13 @@ import com.zhuzichu.base.ext.dip2px
 class DividerLine(mContext: Context) : RecyclerView.ItemDecoration() {
 
     companion object {
-        private const val DEFAULT_DIVIDER_SIZE = 1
+        private const val DEFAULT_DIVIDER_SIZE = 0.5
         private val ATTRS = intArrayOf(android.R.attr.listDivider)
     }
 
     private val dividerDrawable: Drawable?
-    var dividerSize: Int = 0
-    var mode: LineDrawMode? = null
+    private var dividerSize: Int = 0
+    private var mode: LineDrawMode? = null
 
     enum class LineDrawMode {
         HORIZONTAL, VERTICAL, BOTH

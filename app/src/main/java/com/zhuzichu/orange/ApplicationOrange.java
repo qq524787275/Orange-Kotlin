@@ -2,6 +2,8 @@ package com.zhuzichu.orange;
 
 import android.app.Application;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.zhuzichu.base.global.AppGlobal;
 
 import io.reactivex.functions.Consumer;
@@ -19,6 +21,10 @@ public class ApplicationOrange extends Application {
         super.onCreate();
         AppGlobal.INSTANCE.init(this);
         initAutoSize();
+        RxJavaPlugins.setErrorHandler(throwable -> {
+
+        });
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
     private void initAutoSize() {

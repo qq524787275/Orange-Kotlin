@@ -12,18 +12,23 @@ import com.zhuzichu.orange.common.viewmodel.ViewModelItemSection
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionLine
 import com.zhuzichu.orange.ui.mine.setting.languages.fragment.FragmentLanguages
 import com.zhuzichu.orange.ui.mine.setting.main.fragment.FragmentSetting
+import com.zhuzichu.orange.ui.mine.setting.theme.fragment.FragmentTheme
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 class ViewModelSetting(application: Application) : BaseViewModel(application) {
 
     companion object {
         const val SETTING_SECTION_LANGUAGES = 0
+        const val SETTING_SECTION_THEME=1
     }
 
     private val onClickSection = { id: Int ->
         when (id) {
             SETTING_SECTION_LANGUAGES -> {
                 startFragment(FragmentLanguages())
+            }
+            SETTING_SECTION_THEME->{
+                startFragment(FragmentTheme())
             }
             else -> {
             }
@@ -37,6 +42,12 @@ class ViewModelSetting(application: Application) : BaseViewModel(application) {
                 this,
                 SETTING_SECTION_LANGUAGES,
                 R.string.languages,
+                onClickSection
+            ),
+            ViewModelItemSection(
+                this,
+                SETTING_SECTION_THEME,
+                R.string.theme,
                 onClickSection
             )
         )
