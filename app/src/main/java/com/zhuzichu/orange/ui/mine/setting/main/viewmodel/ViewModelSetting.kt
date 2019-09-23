@@ -25,10 +25,10 @@ class ViewModelSetting(application: Application) : BaseViewModel(application) {
     private val onClickSection = { id: Int ->
         when (id) {
             SETTING_SECTION_LANGUAGES -> {
-                startFragment(FragmentLanguages())
+//                startFragment(FragmentLanguages())
             }
             SETTING_SECTION_THEME->{
-                startFragment(FragmentTheme())
+//                startFragment(FragmentTheme())
             }
             else -> {
             }

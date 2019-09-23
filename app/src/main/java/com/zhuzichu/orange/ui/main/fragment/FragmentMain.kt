@@ -1,39 +1,38 @@
 package com.zhuzichu.orange.ui.main.fragment
 
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
 import com.zhuzichu.base.base.BaseFragment
-import com.zhuzichu.base.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.base.base.DefaultParams
-import com.zhuzichu.base.ext.setupWithViewPager
+import com.zhuzichu.base.ext.setupWithNavController
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
-import com.zhuzichu.orange.ui.category.fragment.FragmentCategory
-import com.zhuzichu.orange.ui.find.fragment.FragmentFind
-import com.zhuzichu.orange.ui.home.fragment.FragmentHome
 import com.zhuzichu.orange.ui.main.viewmodel.ViewModelMain
-import com.zhuzichu.orange.ui.mine.main.fragment.FragmentMine
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class FragmentMain : BaseFragment<DefaultParams, FragmentMainBinding, ViewModelMain>() {
 
-    private val fragments by lazy {
-        listOf<Fragment>(
-            FragmentHome(),
-            FragmentCategory(),
-            FragmentFind(),
-            FragmentMine()
-        )
-    }
+    private var currentNavController: LiveData<NavController>? = null
+
+    private val navGraphIds = listOf(
+        R.navigation.navigation_home,
+        R.navigation.navigation_category,
+        R.navigation.navigation_find,
+        R.navigation.navigation_mine
+    )
 
     override fun setLayoutId(): Int = R.layout.fragment_main
 
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
-        content.offscreenPageLimit = fragments.size
-        content.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments)
-
-        bottom.setupWithViewPager(content)
+        val controller = bottom.setupWithNavController(
+            navGraphIds = navGraphIds,
+            fragmentManager = childFragmentManager,
+            containerId = R.id.content,
+            intent = activityCtx.intent
+        )
+        currentNavController = controller
     }
 }

@@ -6,6 +6,9 @@ import android.view.MotionEvent
 import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.zhuzichu.base.R
 import com.zhuzichu.base.common.preference.UserPreference
 import me.yokeyword.fragmentation.*
@@ -14,11 +17,10 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 import java.util.*
 
 
-abstract class BaseActivity : AppCompatActivity(), ISupportActivity {
+abstract class BaseActivity : AppCompatActivity() {
 
-    abstract fun setRootFragment(): ISupportFragment
-    private val delegate by lazy { SupportActivityDelegate(this) }
-    private val userPreference:UserPreference by lazy { UserPreference() }
+    abstract fun setNavGraph(): Int
+    private val userPreference: UserPreference by lazy { UserPreference() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +30,21 @@ abstract class BaseActivity : AppCompatActivity(), ISupportActivity {
 
     private fun initContainer(savedInstanceState: Bundle?) {
         val container = FrameLayout(this)
-        container.id = R.id.delegate_containe
+        container.id = R.id.delegate_container
         setContentView(container)
-        if (savedInstanceState == null)
-            delegate.loadRootFragment(R.id.delegate_containe, setRootFragment())
+        if (savedInstanceState == null) {
+            setContentView(container)
+            val fragment = NavHostFragment.create(setNavGraph())
+            val transcation = supportFragmentManager.beginTransaction()
+            transcation.add(R.id.delegate_container, fragment)
+            transcation.commit()
+        }
     }
 
     override fun attachBaseContext(newBase: Context?) {
         newBase?.let {
             val locale = Locale(userPreference.local!!)
-            val res = newBase.getResources()
+            val res = newBase.resources
             val config = res.configuration
             config.setLocale(locale) // getLocale() should return a Locale
             val newContext = newBase.createConfigurationContext(config)
@@ -45,148 +52,7 @@ abstract class BaseActivity : AppCompatActivity(), ISupportActivity {
         }
     }
 
-    override fun getSupportDelegate(): SupportActivityDelegate {
-        return delegate
-    }
-
-    override fun extraTransaction(): ExtraTransaction {
-        return delegate.extraTransaction()
-    }
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        delegate.onPostCreate(savedInstanceState)
-    }
-
-    override fun onDestroy() {
-        delegate.onDestroy()
-        super.onDestroy()
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        return delegate.dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev)
-    }
-
-    override fun onBackPressed() {
-        delegate.onBackPressed()
-    }
-
-    override fun onBackPressedSupport() {
-        delegate.onBackPressedSupport()
-    }
-
-    override fun getFragmentAnimator(): FragmentAnimator {
-        return delegate.fragmentAnimator
-    }
-
-    override fun setFragmentAnimator(fragmentAnimator: FragmentAnimator) {
-        delegate.fragmentAnimator = fragmentAnimator
-    }
-
-    override fun onCreateFragmentAnimator(): FragmentAnimator {
-        return delegate.onCreateFragmentAnimator()
-    }
-
-    override fun post(runnable: Runnable) {
-        delegate.post(runnable)
-    }
-
-    fun loadRootFragment(containerId: Int, toFragment: ISupportFragment) {
-        delegate.loadRootFragment(containerId, toFragment)
-    }
-
-    fun loadRootFragment(
-        containerId: Int,
-        toFragment: ISupportFragment,
-        addToBackStack: Boolean,
-        allowAnimation: Boolean
-    ) {
-        delegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnimation)
-    }
-
-    fun loadMultipleRootFragment(
-        containerId: Int,
-        showPosition: Int,
-        vararg toFragments: ISupportFragment
-    ) {
-        delegate.loadMultipleRootFragment(containerId, showPosition, *toFragments)
-    }
-
-    fun showHideFragment(showFragment: ISupportFragment) {
-        delegate.showHideFragment(showFragment)
-    }
-
-    fun showHideFragment(showFragment: ISupportFragment, hideFragment: ISupportFragment) {
-        delegate.showHideFragment(showFragment, hideFragment)
-    }
-
-    fun start(toFragment: ISupportFragment) {
-        delegate.start(toFragment)
-    }
-
-    fun start(toFragment: ISupportFragment, @ISupportFragment.LaunchMode launchMode: Int) {
-        delegate.start(toFragment, launchMode)
-    }
-
-    fun startForResult(toFragment: ISupportFragment, requestCode: Int) {
-        delegate.startForResult(toFragment, requestCode)
-    }
-
-    fun startWithPop(toFragment: ISupportFragment) {
-        delegate.startWithPop(toFragment)
-    }
-
-    fun startWithPopTo(
-        toFragment: ISupportFragment,
-        targetFragmentClass: Class<*>,
-        includeTargetFragment: Boolean
-    ) {
-        delegate.startWithPopTo(toFragment, targetFragmentClass, includeTargetFragment)
-    }
-
-    fun replaceFragment(toFragment: ISupportFragment, addToBackStack: Boolean) {
-        delegate.replaceFragment(toFragment, addToBackStack)
-    }
-
-    fun pop() {
-        delegate.pop()
-    }
-
-    fun popTo(targetFragmentClass: Class<*>, includeTargetFragment: Boolean) {
-        delegate.popTo(targetFragmentClass, includeTargetFragment)
-    }
-
-    fun popTo(
-        targetFragmentClass: Class<*>,
-        includeTargetFragment: Boolean,
-        afterPopTransactionRunnable: Runnable
-    ) {
-        delegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable)
-    }
-
-    fun popTo(
-        targetFragmentClass: Class<*>,
-        includeTargetFragment: Boolean,
-        afterPopTransactionRunnable: Runnable,
-        popAnim: Int
-    ) {
-        delegate.popTo(
-            targetFragmentClass,
-            includeTargetFragment,
-            afterPopTransactionRunnable,
-            popAnim
-        )
-    }
-
-    fun setDefaultFragmentBackground(@DrawableRes backgroundRes: Int) {
-        delegate.defaultFragmentBackground = backgroundRes
-    }
-
-    fun getTopFragment(): ISupportFragment {
-        return SupportHelper.getTopFragment(supportFragmentManager)
-    }
-
-    fun <T : ISupportFragment> findFragment(fragmentClass: Class<T>): T {
-        return SupportHelper.findFragment(supportFragmentManager, fragmentClass)
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.delegate_container).navigateUp()
     }
 }

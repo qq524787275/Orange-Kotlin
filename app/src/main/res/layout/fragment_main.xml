@@ -28,7 +28,7 @@
             android:background="@color/c_bbbbbb"
             app:layout_constraintBottom_toTopOf="@id/bottom" />
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="0dp"

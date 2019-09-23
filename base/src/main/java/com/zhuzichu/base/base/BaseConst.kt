@@ -1,8 +1,7 @@
 package com.zhuzichu.base.base
 
 object BaseConst {
-    const val FRAGMENT = "FRAGMENT"
-    const val FRAGMENT_LAUNCHMODE = "FRAGMENT_LAUNCHMODE"
+    const val ACTION_ID="ACTION_ID"
     const val CLASS = "CLASS"
     const val PARAMS = "PARAMS"
     const val POP = "POP"

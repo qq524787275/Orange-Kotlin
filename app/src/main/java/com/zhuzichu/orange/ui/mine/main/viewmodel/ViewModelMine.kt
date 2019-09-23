@@ -19,7 +19,8 @@ class ViewModelMine(application: Application) : BaseViewModel(application) {
     private val onClickSection = { id: Int ->
         when (id) {
             MAIN_SECTION_SETTING -> {
-                startFragment(FragmentSetting())
+//                startFragment(FragmentSetting())
+                startFragment(R.id.action_fragmentMain_to_fragmentSetting)
             }
             else -> {
             }

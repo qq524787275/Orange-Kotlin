@@ -78,6 +78,9 @@ dependencies {
         exclude group: "com.android.support"
     }
 
+    api "androidx.navigation:navigation-fragment-ktx:$libsVersion.navigation"
+    api "androidx.navigation:navigation-ui-ktx:$libsVersion.navigation"
+
     api "com.google.code.gson:gson:$libsVersion.gson"
 
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$libsVersion.kotlin"

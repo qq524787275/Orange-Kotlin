@@ -30,14 +30,12 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun startFragment(
-        fragment: Fragment,
-        params: BaseParams = DefaultParams(),
-        @ISupportFragment.LaunchMode launchMode: Int = ISupportFragment.STANDARD
+        actionId: Int,
+        params: BaseParams = DefaultParams()
     ) {
         val map = HashMap<String, Any>()
         map[BaseConst.PARAMS] = params
-        map[BaseConst.FRAGMENT] = fragment
-        map[BaseConst.FRAGMENT_LAUNCHMODE] = launchMode
+        map[BaseConst.ACTION_ID] = actionId
         uc.startFragmentEvent.postValue(map)
     }
 

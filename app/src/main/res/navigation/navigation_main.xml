@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/fragmentMain">
+
+    <fragment
+        android:id="@+id/fragmentMain"
+        android:name="com.zhuzichu.orange.ui.main.fragment.FragmentMain"
+        android:label="FragmentMain">
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentSetting"
+            app:destination="@id/fragmentSetting" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSetting"
+        android:name="com.zhuzichu.orange.ui.mine.setting.main.fragment.FragmentSetting"
+        android:label="FragmentSetting" />
+
+
+</navigation>

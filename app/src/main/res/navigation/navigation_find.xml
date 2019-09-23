@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_tab_find"
+    app:startDestination="@id/fragmentFind">
+
+    <fragment
+        android:id="@+id/fragmentFind"
+        android:name="com.zhuzichu.orange.ui.find.fragment.FragmentFind"
+        android:label="FragmentFind" />
+</navigation>
