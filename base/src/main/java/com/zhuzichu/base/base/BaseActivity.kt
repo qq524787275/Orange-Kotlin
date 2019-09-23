@@ -1,13 +1,16 @@
 package com.zhuzichu.base.base
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MotionEvent
 import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.ConfigurationCompat
 import com.zhuzichu.base.R
 import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.ext.localeContextWrapper
 import me.yokeyword.fragmentation.*
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
@@ -34,15 +37,8 @@ abstract class BaseActivity : AppCompatActivity(), ISupportActivity {
             delegate.loadRootFragment(R.id.delegate_containe, setRootFragment())
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-        newBase?.let {
-            val locale = Locale(userPreference.local!!)
-            val res = newBase.getResources()
-            val config = res.configuration
-            config.setLocale(locale) // getLocale() should return a Locale
-            val newContext = newBase.createConfigurationContext(config)
-            super.attachBaseContext(newContext)
-        }
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(newBase.localeContextWrapper(Locale(userPreference.local!!)))
     }
 
     override fun getSupportDelegate(): SupportActivityDelegate {

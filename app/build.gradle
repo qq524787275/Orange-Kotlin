@@ -52,6 +52,12 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {
