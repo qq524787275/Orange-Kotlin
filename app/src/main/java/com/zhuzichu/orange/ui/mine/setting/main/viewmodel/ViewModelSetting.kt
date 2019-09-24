@@ -19,16 +19,16 @@ class ViewModelSetting(application: Application) : BaseViewModel(application) {
 
     companion object {
         const val SETTING_SECTION_LANGUAGES = 0
-        const val SETTING_SECTION_THEME=1
+        const val SETTING_SECTION_THEME = 1
     }
 
     private val onClickSection = { id: Int ->
         when (id) {
             SETTING_SECTION_LANGUAGES -> {
-//                startFragment(FragmentLanguages())
+                startFragment(R.id.action_fragmentSetting_to_fragmentLanguages)
             }
-            SETTING_SECTION_THEME->{
-//                startFragment(FragmentTheme())
+            SETTING_SECTION_THEME -> {
+                startFragment(R.id.action_fragmentSetting_to_fragmentTheme)
             }
             else -> {
             }

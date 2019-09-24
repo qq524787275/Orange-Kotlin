@@ -2,6 +2,7 @@ package com.zhuzichu.base.common.preference
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatDelegate
 import com.zhuzichu.base.global.AppGlobal
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -21,6 +22,7 @@ open class UserPreference {
 
 
     var local by PreferenceDelegates.string(defaultValue = "zh")
+    var uiMode by PreferenceDelegates.int(defaultValue = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
     private object PreferenceDelegates {
 

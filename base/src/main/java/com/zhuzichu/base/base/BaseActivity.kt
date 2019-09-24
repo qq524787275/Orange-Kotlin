@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.base.R
 import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.ext.localeContextWrapper
 
 import java.util.*
 
@@ -40,13 +41,20 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         newBase?.let {
-            val locale = Locale(userPreference.local!!)
-            val res = newBase.resources
-            val config = res.configuration
-            config.setLocale(locale) // getLocale() should return a Locale
-            val newContext = newBase.createConfigurationContext(config)
-            super.attachBaseContext(newContext)
+            super.attachBaseContext(it.localeContextWrapper(Locale(userPreference.local!!)))
         }
+
+    }
+
+    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
+        //主题和语言切换产生冲突 具体详见
+        // https://stackoverflow.com/questions/55265834/change-locale-not-work-after-migrate-to-androidx
+        if (overrideConfiguration != null) {
+            val uiMode = overrideConfiguration.uiMode
+            overrideConfiguration.setTo(baseContext.resources.configuration)
+            overrideConfiguration.uiMode = uiMode
+        }
+        super.applyOverrideConfiguration(overrideConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
