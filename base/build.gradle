@@ -2,9 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 // 依赖库版本
-def libsVersion = rootProject.libsVersion
 // gradle 配置
 def gradleProp = getMyGradleProperties()
 

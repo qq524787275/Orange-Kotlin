@@ -1,3 +1,6 @@
 
-jsquid:UselessImportCheck"?Remove this unused import 'io.reactivex.plugins.RxJavaPlugins'.(ğ„¾¼8«ÊíèÔ-
-lsquid:UselessImportCheck"<Remove this unused import 'io.reactivex.functions.Consumer'.(áè—Õüÿÿÿÿ8öèèÔ-
+hsquid:UselessImportCheck
+"=Remove this unused import 'com.zhuzichu.base.ext.ToastExtKt'.(ì…¦®8âÁ–‰Ö-
+csquid:UselessImportCheck"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ8âÁ–‰Ö-
+nsquid:UselessImportCheck">Remove this unused import 'android.content.res.Configuration'.(ßºÊƒûÿÿÿÿ8âÁ–‰Ö-
+asquid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8âÁ–‰Ö-
