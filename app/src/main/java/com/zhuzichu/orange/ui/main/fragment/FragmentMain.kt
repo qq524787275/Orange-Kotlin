@@ -1,5 +1,6 @@
 package com.zhuzichu.orange.ui.main.fragment
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.zhuzichu.base.base.BaseFragment
@@ -22,11 +23,20 @@ class FragmentMain : BaseFragment<DefaultParams, FragmentMainBinding, ViewModelM
         R.navigation.navigation_mine
     )
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        setupBottomNavigationBar()
+    }
+
     override fun setLayoutId(): Int = R.layout.fragment_main
 
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
+        setupBottomNavigationBar()
+    }
+
+    private fun setupBottomNavigationBar() {
         val controller = bottom.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = childFragmentManager,
@@ -35,4 +45,5 @@ class FragmentMain : BaseFragment<DefaultParams, FragmentMainBinding, ViewModelM
         )
         currentNavController = controller
     }
+
 }

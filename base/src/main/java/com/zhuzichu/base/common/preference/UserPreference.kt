@@ -22,7 +22,6 @@ open class UserPreference {
 
     var local by PreferenceDelegates.string(defaultValue = "zh")
 
-
     private object PreferenceDelegates {
 
         fun int(defaultValue: Int = 0) = object : ReadWriteProperty<UserPreference, Int> {
