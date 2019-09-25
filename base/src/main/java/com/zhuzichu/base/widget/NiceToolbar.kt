@@ -20,6 +20,9 @@ class NiceToolbar @JvmOverloads constructor(
 
     private val root: View?
     private val titleView: TextView?
+    private val navigationTextView: TextView?
+    private val navigationIconView: ImageView?
+
     var titleText: String? = null
         set(value) {
             value?.let {
@@ -27,7 +30,7 @@ class NiceToolbar @JvmOverloads constructor(
                 titleView?.text = field
             }
         }
-    private val navigationTextView: TextView?
+
     var navigationText: String? = null
         set(value) {
             value?.let {
@@ -36,7 +39,6 @@ class NiceToolbar @JvmOverloads constructor(
             }
         }
 
-    private val navigationIconView: ImageView?
     private var navigationDrawable: Drawable? = null
         set(value) {
             value?.let {
@@ -78,6 +80,5 @@ class NiceToolbar @JvmOverloads constructor(
         this.navigationText = navigationText
         this.navigationDrawable = navigationDrawable
     }
-
 
 }
