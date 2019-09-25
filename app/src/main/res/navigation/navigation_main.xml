@@ -12,10 +12,26 @@
             android:id="@+id/action_fragmentMain_to_fragmentSetting"
             app:destination="@id/fragmentSetting" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentSetting"
         android:name="com.zhuzichu.orange.ui.mine.setting.main.fragment.FragmentSetting"
-        android:label="FragmentSetting" />
+        android:label="FragmentSetting" >
+        <action
+            android:id="@+id/action_fragmentSetting_to_fragmentLanguages"
+            app:destination="@id/fragmentLanguages" />
+        <action
+            android:id="@+id/action_fragmentSetting_to_fragmentTheme"
+            app:destination="@id/fragmentTheme" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLanguages"
+        android:name="com.zhuzichu.orange.ui.mine.setting.languages.fragment.FragmentLanguages"
+        android:label="FragmentLanguages" />
+    <fragment
+        android:id="@+id/fragmentTheme"
+        android:name="com.zhuzichu.orange.ui.mine.setting.theme.fragment.FragmentTheme"
+        android:label="FragmentTheme" />
 
 
 </navigation>

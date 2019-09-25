@@ -1,5 +1,6 @@
 package com.zhuzichu.base.ext
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
@@ -24,6 +25,7 @@ fun <T> Any?.toCast(): T {
     return this as T
 }
 
+@SuppressLint("ObsoleteSdkInt")
 fun Context.localeContextWrapper(newLocale: Locale): ContextWrapper {
     var context: Context=this
     val config = this.resources.configuration

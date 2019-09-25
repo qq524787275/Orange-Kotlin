@@ -104,10 +104,6 @@ dependencies {
     api "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$libsVersion.bindingcollectionadapter"
     api "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$libsVersion.bindingcollectionadapter"
 
-    api "me.yokeyword:fragmentationx:$libsVersion.fragmention"
-    api "me.yokeyword:fragmentationx-core:$libsVersion.fragmention"
-    api "me.yokeyword:fragmentationx-swipeback:$libsVersion.fragmention"
-
     api "com.squareup.okhttp3:okhttp:$libsVersion.okhttp"
     api "com.squareup.retrofit2:retrofit:$libsVersion.retrofit"
     api "com.squareup.retrofit2:converter-gson:$libsVersion.retrofit"

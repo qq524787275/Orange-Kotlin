@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.zhuzichu.base.event.SingleLiveEvent
-import me.yokeyword.fragmentation.ISupportFragment
 
 open class BaseViewModel(application: Application) : AndroidViewModel(application), IBaseViewModel {
 

@@ -8,7 +8,6 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionIcon
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionLine
-import com.zhuzichu.orange.ui.mine.setting.main.fragment.FragmentSetting
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 class ViewModelMine(application: Application) : BaseViewModel(application) {

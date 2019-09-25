@@ -12,9 +12,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.zhuzichu.base.R
 import com.zhuzichu.base.ext.toCast
@@ -103,7 +105,14 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         viewModel.uc.startFragmentEvent.observe(this, Observer {
             val actionId = it[BaseConst.ACTION_ID] as Int
             val params = it[BaseConst.PARAMS] as BaseParams
-            navController.navigate(actionId, bundleOf(BaseConst.PARAMS to params))
+            navController.navigate(actionId, bundleOf(BaseConst.PARAMS to params), navOptions {
+                anim {
+                    enter = R.anim.slide_in_right // 进入页面动画
+                    exit = R.anim.slide_out_left
+                    popEnter = R.anim.slide_in_left  // 弹出栈动画
+                    popExit = R.anim.slide_out_right
+                }
+            })
         })
 
         viewModel.uc.onBackPressedEvent.observe(this, Observer {
