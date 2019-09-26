@@ -21,9 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:toolbar_navigation_icon="@drawable/ic_back"
             app:onClickNavigation="@{viewModel.onClickNavigation}"
-            app:toolbar_title="@string/languages" />
+            app:toolbar_navigation_icon="@drawable/ic_back"
+            app:toolbar_title="@string/languages"
+            app:toolbar_titleTextAppearance="?attr/textAppearanceHeadline6" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -32,8 +33,7 @@
             app:items="@{viewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:lineManager="@{LineManagers.horizontal()}" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

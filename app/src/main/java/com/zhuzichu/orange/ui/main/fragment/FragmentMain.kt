@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import com.zhuzichu.base.base.BaseFragment
 import com.zhuzichu.base.base.DefaultParams
 import com.zhuzichu.base.ext.setupWithNavController
+import com.zhuzichu.base.ext.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding

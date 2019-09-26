@@ -20,6 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:toolbar_titleTextAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintTop_toTopOf="parent"
             app:onClickNavigation="@{viewModel.onClickNavigation}"
             app:toolbar_navigation_icon="@drawable/ic_back"

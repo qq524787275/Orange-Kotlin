@@ -2,6 +2,7 @@ package com.zhuzichu.orange.ui.mine.setting.main.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.request.RequestOptions
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.ext.map
@@ -18,16 +19,16 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 class ViewModelSetting(application: Application) : BaseViewModel(application) {
 
     companion object {
-        const val SETTING_SECTION_LANGUAGES = 0
-        const val SETTING_SECTION_THEME = 1
+        const val LANGUAGES = 0x00
+        const val THEME = 0x01
     }
 
     private val onClickSection = { id: Int ->
         when (id) {
-            SETTING_SECTION_LANGUAGES -> {
+            LANGUAGES -> {
                 startFragment(R.id.action_fragmentSetting_to_fragmentLanguages)
             }
-            SETTING_SECTION_THEME -> {
+            THEME -> {
                 startFragment(R.id.action_fragmentSetting_to_fragmentTheme)
             }
             else -> {
@@ -37,16 +38,15 @@ class ViewModelSetting(application: Application) : BaseViewModel(application) {
 
     val items = MutableLiveData<List<Any>>().also {
         it.value = listOf(
-            ViewModelItemSectionLine(this),
             ViewModelItemSection(
                 this,
-                SETTING_SECTION_LANGUAGES,
+                LANGUAGES,
                 R.string.languages,
                 onClickSection
             ),
             ViewModelItemSection(
                 this,
-                SETTING_SECTION_THEME,
+                THEME,
                 R.string.theme,
                 onClickSection
             )

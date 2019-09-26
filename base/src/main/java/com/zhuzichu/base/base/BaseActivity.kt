@@ -41,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         newBase?.let {
-            super.attachBaseContext(it.localeContextWrapper(Locale(userPreference.local!!)))
+            super.attachBaseContext(it.localeContextWrapper(Locale(userPreference.locale!!)))
         }
 
     }

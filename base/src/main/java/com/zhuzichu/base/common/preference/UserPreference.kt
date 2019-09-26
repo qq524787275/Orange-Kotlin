@@ -21,7 +21,7 @@ open class UserPreference {
     }
 
 
-    var local by PreferenceDelegates.string(defaultValue = "zh")
+    var locale by PreferenceDelegates.string(defaultValue = "zh")
     var uiMode by PreferenceDelegates.int(defaultValue = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
     private object PreferenceDelegates {

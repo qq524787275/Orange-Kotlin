@@ -9,7 +9,7 @@ import com.zhuzichu.orange.R
 data class ViewModelItemLanguage(
     val viewModel: ViewModelLanguages,
     val title: String,
-    val local: String,
+    val locale: String,
     val isSelected: Boolean
 ) : ItemViewModel<ViewModelLanguages>(viewModel) {
 
@@ -19,7 +19,7 @@ data class ViewModelItemLanguage(
         viewModel.items.value = viewModel.items.value?.map {
             (it as ViewModelItemLanguage).copy(isSelected = it.title == title)
         }
-        userPreference.local = local
+        userPreference.locale = locale
         viewModel.activityCtx.window.setWindowAnimations(R.style.WindowFadeTheme)
         ActivityCompat.recreate(viewModel.activityCtx)
     })

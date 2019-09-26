@@ -40,6 +40,7 @@
         <attr name="toolbar_title" format="string" />
         <attr name="toolbar_navigation_text" format="string" />
         <attr name="toolbar_navigation_icon" format="reference" />
+        <attr name="toolbar_titleTextAppearance" format="reference" />
 
         <attr name="onClickNavigation" format="reference" />
     </declare-styleable>

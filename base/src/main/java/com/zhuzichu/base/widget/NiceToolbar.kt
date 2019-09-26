@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.zhuzichu.base.R
-import com.zhuzichu.base.ext.dp2px
 
 class NiceToolbar @JvmOverloads constructor(
     context: Context,
@@ -18,16 +17,25 @@ class NiceToolbar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val root: View?
-    private val titleView: TextView?
-    private val navigationTextView: TextView?
-    private val navigationIconView: ImageView?
+    private val root: View? = LayoutInflater.from(context)
+        .inflate(R.layout.layout_toolbar, this, true)
+    private val titleView: TextView = findViewById(R.id.title)
+    private val navigationTextView: TextView = findViewById(R.id.navigation_text)
+    private val navigationIconView: ImageView = findViewById(R.id.navigation_icon)
 
     var titleText: String? = null
         set(value) {
             value?.let {
                 field = value
-                titleView?.text = field
+                titleView.text = it
+            }
+        }
+
+    var titleTextAppearance: Int? = null
+        set(value) {
+            value?.let {
+                field = value
+                titleView.setTextAppearance(it)
             }
         }
 
@@ -35,7 +43,7 @@ class NiceToolbar @JvmOverloads constructor(
         set(value) {
             value?.let {
                 field = value
-                navigationTextView?.text = field
+                navigationTextView.text = it
             }
         }
 
@@ -43,7 +51,7 @@ class NiceToolbar @JvmOverloads constructor(
         set(value) {
             value?.let {
                 field = value
-                navigationIconView?.setImageDrawable(it)
+                navigationIconView.setImageDrawable(it)
             }
         }
 
@@ -68,17 +76,10 @@ class NiceToolbar @JvmOverloads constructor(
         titleText = arr.getString(R.styleable.NiceToolbar_toolbar_title)
         navigationText = arr.getString(R.styleable.NiceToolbar_toolbar_navigation_text)
         navigationDrawable = arr.getDrawable(R.styleable.NiceToolbar_toolbar_navigation_icon)
+        titleTextAppearance = arr.getResourceId(
+            R.styleable.NiceToolbar_toolbar_titleTextAppearance,
+            R.attr.textAppearanceHeadline6
+        )
         arr.recycle()
-        root = LayoutInflater.from(context)
-            .inflate(R.layout.layout_toolbar, this, true)
-
-        titleView = findViewById(R.id.title)
-        navigationTextView = findViewById(R.id.navigation_text)
-        navigationIconView = findViewById(R.id.navigation_icon)
-
-        this.titleText = titleText
-        this.navigationText = navigationText
-        this.navigationDrawable = navigationDrawable
     }
-
 }

@@ -12,19 +12,20 @@ import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 
 class ViewModelLanguages(application: Application) : BaseViewModel(application) {
 
-    companion object{
-        const val LOCAL_EN="en"
-        const val LOCAL_ZH="zh"
-        const val LOCAL_AR="ar"
+    companion object {
+        const val LOCAL_EN = "en"
+        const val LOCAL_ZH = "zh"
+        const val LOCAL_AR = "ar"
     }
 
-    private val userPreference:UserPreference by lazy { UserPreference() }
+    private val userPreference: UserPreference by lazy { UserPreference() }
 
     val items = MutableLiveData<List<Any>>().also {
+        val locale = userPreference.locale
         it.value = listOf(
-            ViewModelItemLanguage(this, "English", LOCAL_EN, userPreference.local== LOCAL_EN),
-            ViewModelItemLanguage(this, "中文", LOCAL_ZH, userPreference.local== LOCAL_ZH),
-            ViewModelItemLanguage(this, "عربى", LOCAL_AR, userPreference.local== LOCAL_AR)
+            ViewModelItemLanguage(this, "English", LOCAL_EN, locale == LOCAL_EN),
+            ViewModelItemLanguage(this, "中文", LOCAL_ZH, locale == LOCAL_ZH),
+            ViewModelItemLanguage(this, "عربى", LOCAL_AR, locale == LOCAL_AR)
         )
     }
 
