@@ -20,11 +20,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:toolbar_titleTextAppearance="?attr/textAppearanceHeadline6"
+            app:toolbarTitleTextAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintTop_toTopOf="parent"
             app:onClickNavigation="@{viewModel.onClickNavigation}"
-            app:toolbar_navigation_icon="@drawable/ic_back"
-            app:toolbar_title="@string/setting" />
+            app:toolbarNavigationIcon="@drawable/ic_back"
+            app:toolbarTitle="@string/setting" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/navis"

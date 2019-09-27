@@ -11,6 +11,10 @@
     <string name="theme">Theme</string>
 
     <string name="settings_theme_title">Choose theme</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="theme_color">Theme color</string>
+    <string name="primary_color">Primary color</string>
+    <string name="secondary_color">Secondary color</string>
     <string name="settings_theme_system">System default</string>
     <string name="settings_theme_light">Light</string>
     <string name="settings_theme_dark">Dark</string>

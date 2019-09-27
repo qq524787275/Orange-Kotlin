@@ -37,11 +37,15 @@
     </declare-styleable>
 
     <declare-styleable name="NiceToolbar">
-        <attr name="toolbar_title" format="string" />
-        <attr name="toolbar_navigation_text" format="string" />
-        <attr name="toolbar_navigation_icon" format="reference" />
-        <attr name="toolbar_titleTextAppearance" format="reference" />
+        <attr name="toolbarTitle" format="string" />
+        <attr name="toolbarNavigationText" format="string" />
+        <attr name="toolbarNavigationIcon" format="reference" />
+        <attr name="toolbarTitleTextAppearance" format="reference" />
 
         <attr name="onClickNavigation" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleView">
+        <attr name="circleColor" format="reference" />
     </declare-styleable>
 </resources>

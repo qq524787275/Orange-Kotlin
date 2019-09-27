@@ -18,7 +18,6 @@ class ViewModelMine(application: Application) : BaseViewModel(application) {
     private val onClickSection = { id: Int ->
         when (id) {
             MAIN_SECTION_SETTING -> {
-//                startFragment(FragmentSetting())
                 startFragment(R.id.action_fragmentMain_to_fragmentSetting)
             }
             else -> {
@@ -28,9 +27,8 @@ class ViewModelMine(application: Application) : BaseViewModel(application) {
 
     val items = MutableLiveData<List<Any>>().also {
         it.value = listOf(
-            ViewModelItemSectionLine(this),
+            ViewModelItemSectionLine(),
             ViewModelItemSectionIcon(
-                this,
                 MAIN_SECTION_SETTING,
                 R.drawable.ic_setting,
                 R.string.setting,

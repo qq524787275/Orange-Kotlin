@@ -11,9 +11,9 @@ data class ViewModelItemLanguage(
     val title: String,
     val locale: String,
     val isSelected: Boolean
-) : ItemViewModel<ViewModelLanguages>(viewModel) {
+) : ItemViewModel() {
 
-   private val userPreference by lazy { UserPreference() }
+    private val userPreference by lazy { UserPreference() }
 
     val onClickItem = BindingCommand<Any>({
         viewModel.items.value = viewModel.items.value?.map {

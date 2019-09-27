@@ -3,6 +3,7 @@ package com.zhuzichu.base.base
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -28,13 +29,29 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         this.lifecycleProvider = lifecycleProvider
     }
 
+    fun startActivity(
+        clz: Class<*>,
+        params: BaseParams = DefaultParams(),
+        isPop: Boolean = false,
+        options: Bundle = bundleOf(),
+        requestCode: Int = 0
+    ) {
+        val map = HashMap<String, Any>()
+        map[Const.CLASS] = clz
+        map[Const.PARAMS] = params
+        map[Const.POP] = isPop
+        map[Const.OPTIONS] = options
+        map[Const.REQUEST_CODE] = requestCode
+        uc.startActivityEvent.postValue(map)
+    }
+
     fun startFragment(
         actionId: Int,
         params: BaseParams = DefaultParams()
     ) {
         val map = HashMap<String, Any>()
-        map[BaseConst.PARAMS] = params
-        map[BaseConst.ACTION_ID] = actionId
+        map[Const.PARAMS] = params
+        map[Const.ACTION_ID] = actionId
         uc.startFragmentEvent.postValue(map)
     }
 
@@ -43,21 +60,6 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
         uc.onBackPressedEvent.call()
     }
 
-    fun startActivity(
-        clz: Class<*>,
-        params: BaseParams = DefaultParams(),
-        isPop: Boolean = false,
-        options: Bundle? = null,
-        requestCode: Int? = null
-    ) {
-        val map = HashMap<String, Any>()
-        map[BaseConst.CLASS] = clz
-        map[BaseConst.PARAMS] = params
-        map[BaseConst.POP] = isPop
-        options?.let { map[BaseConst.OPTIONS] = it }
-        requestCode?.let { map[BaseConst.REQUEST_CODE] = it }
-        uc.startActivityEvent.postValue(map)
-    }
 
 
     inner class UIChangeLiveData {

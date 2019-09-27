@@ -6,13 +6,12 @@ import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.base.ItemViewModel
 import com.zhuzichu.base.binding.BindingCommand
 
-class ViewModelItemSectionIcon(
-    viewModel: BaseViewModel,
-    id: Int,
+data class ViewModelItemSectionIcon(
+    val id: Int,
     @DrawableRes val iconId: Int,
     @StringRes val textId: Int,
-    private var onClickEvent: ((parameter: Int) -> Unit)? = null
-) : ItemViewModel<BaseViewModel>(viewModel) {
+    private val onClickEvent: ((parameter: Int) -> Unit)? = null
+) : ItemViewModel() {
 
     val onClickItem = BindingCommand<Int>({
         onClickEvent?.invoke(id)

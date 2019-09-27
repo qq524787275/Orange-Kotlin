@@ -12,10 +12,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.zhuzichu.base.R
@@ -37,8 +34,8 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     lateinit var params: TParams
     lateinit var contentView: View
     lateinit var activityCtx: Activity
-    val lifecycleProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
-    val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
+    private val lifecycleProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
+    private val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
 
     abstract fun setLayoutId(): Int
     abstract fun bindVariableId(): Int
@@ -56,7 +53,7 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         binding = DataBindingUtil.bind<ViewDataBinding>(contentView).toCast()
         binding.setVariable(bindVariableId(), viewModel)
         arguments?.let {
-            params = it.getParcelable<BaseParams>(BaseConst.PARAMS).toCast()
+            params = it.getParcelable<BaseParams>(Const.PARAMS).toCast()
         }
         viewModel.injectFragment(this)
         viewModel.injectActivity(activityCtx)
@@ -73,39 +70,28 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         initVariable()
         initView()
         initViewObservable()
+        viewModel.initData()
     }
 
     private fun registUIChangeLiveDataCallback() {
         viewModel.uc.startActivityEvent.observe(this, Observer {
-            val clz = it[BaseConst.CLASS] as Class<*>
-            val params = it[BaseConst.PARAMS] as BaseParams
-            val isPop = it[BaseConst.POP] as Boolean
-            val options = it[BaseConst.OPTIONS] as Bundle?
-            val requestCode = it[BaseConst.REQUEST_CODE] as Int?
+            val clz = it[Const.CLASS] as Class<*>
+            val params = it[Const.PARAMS] as BaseParams
+            val isPop = it[Const.POP] as Boolean
+            val requestCode = it[Const.REQUEST_CODE] as Int
+            val options = it[Const.OPTIONS] as Bundle
             val intent = Intent(activityCtx, clz)
-            intent.putExtra(BaseConst.PARAMS, params)
-            if (requestCode != null) {
-                if (options != null) {
-                    startActivityForResult(intent, requestCode, options)
-                } else {
-                    startActivityForResult(intent, requestCode)
-                }
-            } else {
-                if (options != null) {
-                    startActivity(intent, options)
-                } else {
-                    startActivity(intent)
-                }
-            }
+            intent.putExtra(Const.PARAMS, params)
+            startActivityForResult(intent, requestCode, options)
             if (isPop) {
                 activityCtx.finish()
             }
         })
 
         viewModel.uc.startFragmentEvent.observe(this, Observer {
-            val actionId = it[BaseConst.ACTION_ID] as Int
-            val params = it[BaseConst.PARAMS] as BaseParams
-            navController.navigate(actionId, bundleOf(BaseConst.PARAMS to params), navOptions {
+            val actionId = it[Const.ACTION_ID] as Int
+            val params = it[Const.PARAMS] as BaseParams
+            navController.navigate(actionId, bundleOf(Const.PARAMS to params), navOptions {
                 anim {
                     enter = R.anim.slide_in_right // 进入页面动画
                     exit = R.anim.slide_out_left

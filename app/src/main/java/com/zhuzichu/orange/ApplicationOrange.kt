@@ -7,7 +7,6 @@ import com.zhuzichu.base.common.preference.UserPreference
 
 import com.zhuzichu.base.global.AppGlobal
 
-import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.plugins.RxJavaPlugins.setErrorHandler
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
@@ -33,8 +32,7 @@ class ApplicationOrange : Application() {
         AutoSizeConfig.getInstance()
             .setCustomFragment(false)
             .setLog(false)
-            .setUseDeviceSize(false)
-            .setBaseOnWidth(true)
+            .setUseDeviceSize(false).isBaseOnWidth = true
         AutoSize.initCompatMultiProcess(this)
     }
 

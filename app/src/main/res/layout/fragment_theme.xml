@@ -20,10 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:toolbar_titleTextAppearance="?attr/textAppearanceHeadline6"
+            app:toolbarTitleTextAppearance="?attr/textAppearanceHeadline6"
             app:onClickNavigation="@{viewModel.onClickNavigation}"
-            app:toolbar_navigation_icon="@drawable/ic_back"
-            app:toolbar_title="@string/settings_theme_title" />
+            app:toolbarNavigationIcon="@drawable/ic_back"
+            app:toolbarTitle="@string/settings_theme_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/navis"

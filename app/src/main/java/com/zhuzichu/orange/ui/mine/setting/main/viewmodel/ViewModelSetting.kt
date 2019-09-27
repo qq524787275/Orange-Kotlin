@@ -39,13 +39,11 @@ class ViewModelSetting(application: Application) : BaseViewModel(application) {
     val items = MutableLiveData<List<Any>>().also {
         it.value = listOf(
             ViewModelItemSection(
-                this,
                 LANGUAGES,
                 R.string.languages,
                 onClickSection
             ),
             ViewModelItemSection(
-                this,
                 THEME,
                 R.string.theme,
                 onClickSection

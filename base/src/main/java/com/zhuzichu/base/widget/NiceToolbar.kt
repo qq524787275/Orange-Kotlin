@@ -73,11 +73,11 @@ class NiceToolbar @JvmOverloads constructor(
 
     init {
         val arr = context.obtainStyledAttributes(attrs, R.styleable.NiceToolbar, 0, 0)
-        titleText = arr.getString(R.styleable.NiceToolbar_toolbar_title)
-        navigationText = arr.getString(R.styleable.NiceToolbar_toolbar_navigation_text)
-        navigationDrawable = arr.getDrawable(R.styleable.NiceToolbar_toolbar_navigation_icon)
+        titleText = arr.getString(R.styleable.NiceToolbar_toolbarTitle)
+        navigationText = arr.getString(R.styleable.NiceToolbar_toolbarNavigationText)
+        navigationDrawable = arr.getDrawable(R.styleable.NiceToolbar_toolbarNavigationIcon)
         titleTextAppearance = arr.getResourceId(
-            R.styleable.NiceToolbar_toolbar_titleTextAppearance,
+            R.styleable.NiceToolbar_toolbarTitleTextAppearance,
             R.attr.textAppearanceHeadline6
         )
         arr.recycle()
