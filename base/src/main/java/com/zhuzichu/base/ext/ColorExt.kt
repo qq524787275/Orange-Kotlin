@@ -8,7 +8,7 @@ import android.util.TypedValue
 import androidx.annotation.AttrRes
 
 
-fun Int.toColorById(): Int {
+fun Int.toColorByResId(): Int {
     return ContextCompat.getColor(AppGlobal.context, this)
 }
 
