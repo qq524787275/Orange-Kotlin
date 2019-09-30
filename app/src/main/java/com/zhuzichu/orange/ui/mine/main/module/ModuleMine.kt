@@ -11,12 +11,13 @@ import dagger.multibindings.IntoMap
 
 @Module
 internal abstract class ModuleMine {
+
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentMine(): FragmentMine
-
 
     @Binds
     @IntoMap
     @ViewModelKey(ViewModelMine::class)
     abstract fun bindViewModelCategory(viewModel: ViewModelMine): ViewModel
+
 }

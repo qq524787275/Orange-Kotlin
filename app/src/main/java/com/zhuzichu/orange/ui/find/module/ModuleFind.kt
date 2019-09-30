@@ -11,12 +11,13 @@ import dagger.multibindings.IntoMap
 
 @Module
 internal abstract class ModuleFind {
+
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentFind(): FragmentFind
-
 
     @Binds
     @IntoMap
     @ViewModelKey(ViewModelFind::class)
     abstract fun bindViewModelFind(viewModel: ViewModelFind): ViewModel
+
 }

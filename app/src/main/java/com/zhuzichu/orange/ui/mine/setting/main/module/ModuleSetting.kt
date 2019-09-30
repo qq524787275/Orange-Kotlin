@@ -11,12 +11,13 @@ import dagger.multibindings.IntoMap
 
 @Module
 internal abstract class ModuleSetting {
+
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentSetting(): FragmentSetting
-
 
     @Binds
     @IntoMap
     @ViewModelKey(ViewModelSetting::class)
     abstract fun bindViewModelSetting(viewModel: ViewModelSetting): ViewModel
+
 }

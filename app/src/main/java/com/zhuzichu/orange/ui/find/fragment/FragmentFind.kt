@@ -9,7 +9,9 @@ import com.zhuzichu.orange.ui.find.viewmodel.ViewModelFind
 
 
 class FragmentFind : BaseFragment<DefaultParams, FragmentFindBinding, ViewModelFind>() {
+
     override fun setLayoutId(): Int= R.layout.fragment_find
 
     override fun bindVariableId(): Int = BR.viewModel
+
 }

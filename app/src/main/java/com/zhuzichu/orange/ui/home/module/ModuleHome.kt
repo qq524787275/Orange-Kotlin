@@ -2,7 +2,6 @@ package com.zhuzichu.orange.ui.home.module
 
 import androidx.lifecycle.ViewModel
 import com.zhuzichu.base.di.ViewModelKey
-import com.zhuzichu.orange.ui.category.viewmodel.ViewModelCategory
 import com.zhuzichu.orange.ui.home.fragment.FragmentHome
 import com.zhuzichu.orange.ui.home.viewmodel.ViewModelHome
 import dagger.Binds
@@ -13,12 +12,13 @@ import dagger.multibindings.IntoMap
 
 @Module
 internal abstract class ModuleHome {
+
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentHome(): FragmentHome
-
 
     @Binds
     @IntoMap
     @ViewModelKey(ViewModelHome::class)
     abstract fun bindViewModelCategory(viewModel: ViewModelHome): ViewModel
+
 }

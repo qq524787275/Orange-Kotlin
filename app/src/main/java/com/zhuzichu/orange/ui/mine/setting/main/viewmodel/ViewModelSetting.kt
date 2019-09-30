@@ -45,6 +45,7 @@ class ViewModelSetting @Inject constructor() : BaseViewModel() {
             )
         )
     }
+
     val itemBinding = OnItemBindClass<Any>().apply {
         map<ViewModelItemSection>(BR.item, R.layout.item_section)
         map<ViewModelItemSectionLine>(BR.item, R.layout.item_section_line)
