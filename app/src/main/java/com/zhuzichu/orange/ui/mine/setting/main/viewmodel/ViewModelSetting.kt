@@ -11,15 +11,15 @@ import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionLine
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 import javax.inject.Inject
 
-class ViewModelSetting @Inject constructor()  : BaseViewModel() {
+class ViewModelSetting @Inject constructor() : BaseViewModel() {
 
     companion object {
         const val LANGUAGES = 0x00
         const val THEME = 0x01
     }
 
-    private val onClickSection = { id: Int ->
-        when (id) {
+    private val onClickSection: (Int) -> Unit = {
+        when (it) {
             LANGUAGES -> {
                 startFragment(R.id.action_fragmentSetting_to_fragmentLanguages)
             }

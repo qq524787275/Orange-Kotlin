@@ -1,30 +1,16 @@
 package com.zhuzichu.base.base
 
-import android.app.Activity
-import android.app.Application
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.zhuzichu.base.event.SingleLiveEvent
 
 open class BaseViewModel : ViewModel(), IBaseViewModel {
 
-    lateinit var fragment: Fragment
-    lateinit var activityCtx: Activity
     lateinit var lifecycleProvider: AndroidLifecycleScopeProvider
 
     val uc by lazy { UIChangeLiveData() }
-
-    fun injectFragment(fragment: Fragment) {
-        this.fragment = fragment
-    }
-
-    fun injectActivity(activity: Activity) {
-        this.activityCtx = activity
-    }
 
     fun injectLifecycleProvider(lifecycleProvider: AndroidLifecycleScopeProvider) {
         this.lifecycleProvider = lifecycleProvider

@@ -93,4 +93,6 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$libsVersion.glide"
     kapt "com.google.dagger:dagger-compiler:$libsVersion.dagger"
     kapt "com.google.dagger:dagger-android-processor:$libsVersion.dagger"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
 }

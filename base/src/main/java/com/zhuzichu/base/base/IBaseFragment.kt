@@ -10,6 +10,8 @@ interface IBaseFragment {
 
     fun initView() {}
 
+    fun initData() {}
+
     fun onSupportVisible() {}
 
     fun onLazyInitView(saveInstanceState: Bundle?) {}

@@ -1,14 +1,33 @@
 package com.zhuzichu.orange.ui.mine.setting.theme.fragment
 
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.Observer
 import com.zhuzichu.base.base.BaseFragment
 import com.zhuzichu.base.base.DefaultParams
+import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.ext.getPrimaryColor
+import com.zhuzichu.base.ext.getSecondaryColor
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentThemeBinding
 import com.zhuzichu.orange.ui.mine.setting.theme.viewmodel.ViewModelTheme
 
-class FragmentTheme: BaseFragment<DefaultParams, FragmentThemeBinding, ViewModelTheme>() {
-    override fun setLayoutId(): Int=R.layout.fragment_theme
+class FragmentTheme : BaseFragment<DefaultParams, FragmentThemeBinding, ViewModelTheme>() {
+    private val userPreference: UserPreference by lazy { UserPreference() }
 
-    override fun bindVariableId(): Int =BR.viewModel
+    override fun setLayoutId(): Int = R.layout.fragment_theme
+
+    override fun bindVariableId(): Int = BR.viewModel
+
+    override fun initData() {
+        viewModel.loadSectionLable(activityCtx.getPrimaryColor(), activityCtx.getSecondaryColor())
+    }
+
+    override fun initVariable() {
+        viewModel.themeChangeEvent.observe(this, Observer {
+            activityCtx.window.setWindowAnimations(R.style.WindowFadeTheme)
+            userPreference.uiMode = it
+            AppCompatDelegate.setDefaultNightMode(userPreference.uiMode)
+        })
+    }
 }

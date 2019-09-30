@@ -15,8 +15,8 @@ class ViewModelMine @Inject constructor() : BaseViewModel() {
         const val MAIN_SECTION_SETTING = 0
     }
 
-    private val onClickSection = { id: Int ->
-        when (id) {
+    private val onClickSection: (Int) -> Unit = {
+        when (it) {
             MAIN_SECTION_SETTING -> {
                 startFragment(R.id.action_fragmentMain_to_fragmentSetting)
             }

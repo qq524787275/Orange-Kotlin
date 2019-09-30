@@ -5,6 +5,7 @@ import com.zhuzichu.base.ext.map
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.event.SingleLiveEvent
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
@@ -19,6 +20,8 @@ class ViewModelLanguages @Inject constructor() : BaseViewModel() {
     }
 
     private val userPreference: UserPreference by lazy { UserPreference() }
+
+    val languagesChangeEvent = SingleLiveEvent<String>()
 
     val items = MutableLiveData<List<Any>>().also {
         val locale = userPreference.locale

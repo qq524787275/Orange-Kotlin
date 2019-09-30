@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.binding.BindingCommand
-import com.zhuzichu.base.ext.getPrimaryColor
-import com.zhuzichu.base.ext.getSecondaryColor
+import com.zhuzichu.base.event.SingleLiveEvent
 import com.zhuzichu.base.ext.map
+import com.zhuzichu.base.ext.toStringByResId
+import com.zhuzichu.base.ext.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionColor
@@ -28,7 +29,14 @@ class ViewModelTheme @Inject constructor() : BaseViewModel() {
         back()
     })
 
-    override fun initData() {
+    val themeChangeEvent = SingleLiveEvent<Int>()
+
+
+    private val onClickSectionColor: (ViewModelItemSectionColor) -> Unit = {
+        it.textId.toStringByResId().toast()
+    }
+
+    fun loadSectionLable(primaryColor: Int, secondaryColor: Int) {
         items.value = listOf(
             ViewModelItemSectionLable(R.string.dark_mode),
             ViewModelItemTheme(
@@ -59,17 +67,18 @@ class ViewModelTheme @Inject constructor() : BaseViewModel() {
             ViewModelItemSectionColor(
                 this,
                 R.string.primary_color,
-                activityCtx.getPrimaryColor()
+                primaryColor,
+                onClickSectionColor
             ),
             ViewModelItemSectionColor(
                 this,
                 R.string.secondary_color,
-                activityCtx.getSecondaryColor()
+                secondaryColor,
+                onClickSectionColor
             )
         )
     }
 
     private fun isCurrentModel(mode: Int): Boolean = mode == getDefaultNightMode()
-
 
 }

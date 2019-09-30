@@ -9,12 +9,10 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.zhuzichu.base.R
 import com.zhuzichu.base.ext.toCast
 import dagger.android.support.DaggerFragment
@@ -35,14 +33,12 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var binding: TBinding
+    var binding: TBinding? = null
     lateinit var viewModel: TViewModel
     lateinit var params: TParams
 
-    lateinit var contentView: View
     lateinit var activityCtx: Activity
 
-    private val lifecycleProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
     private val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
     val visibleDelegate by lazy { VisibleDelegate(this) }
 
@@ -75,18 +71,15 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
                 ViewModelProvider(this, viewModelFactory).get(type.actualTypeArguments[2].toCast())
 
         lifecycle.addObserver(viewModel)
-        contentView = inflater.inflate(setLayoutId(), container, false)
-        binding = DataBindingUtil.bind<ViewDataBinding>(contentView).toCast()
-        binding.setVariable(bindVariableId(), viewModel)
+        val rootView = inflater.inflate(setLayoutId(), container, false)
+        binding = DataBindingUtil.bind<ViewDataBinding>(rootView).toCast()
+        binding?.setVariable(bindVariableId(), viewModel)
         arguments?.let {
             params = it.getParcelable<BaseParams>(Const.PARAMS).toCast()
         }
-        viewModel.injectFragment(this)
-        viewModel.injectActivity(activityCtx)
-        viewModel.injectLifecycleProvider(lifecycleProvider)
-        return contentView.also {
-            binding.lifecycleOwner = this
-            binding.executePendingBindings()
+        return rootView.also {
+            binding?.lifecycleOwner = this
+            binding?.executePendingBindings()
         }
     }
 
@@ -96,7 +89,7 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         initVariable()
         initView()
         initViewObservable()
-        viewModel.initData()
+        initData()
     }
 
     override fun onResume() {
@@ -112,6 +105,11 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     override fun onDestroyView() {
         super.onDestroyView()
         visibleDelegate.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding?.unbind()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
