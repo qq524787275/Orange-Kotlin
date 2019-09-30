@@ -3,7 +3,7 @@ package com.zhuzichu.orange
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy.Builder
 import androidx.appcompat.app.AppCompatDelegate
-import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.common.prefs.UserStorage
 
 import com.zhuzichu.base.global.AppGlobal
 import com.zhuzichu.orange.di.DaggerAppComponent
@@ -12,7 +12,7 @@ import dagger.android.support.DaggerApplication
 
 import io.reactivex.plugins.RxJavaPlugins.setErrorHandler
 import leakcanary.AppWatcher
-import leakcanary.LeakCanary
+
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
 
@@ -21,7 +21,7 @@ import me.jessyan.autosize.AutoSizeConfig
  */
 class ApplicationOrange : DaggerApplication() {
 
-    private val userPreference: UserPreference by lazy { UserPreference() }
+    private val userStorage: UserStorage by lazy { UserStorage() }
 
 
     override fun onCreate() {
@@ -35,7 +35,7 @@ class ApplicationOrange : DaggerApplication() {
         setErrorHandler {
 
         }
-        AppCompatDelegate.setDefaultNightMode(userPreference.uiMode)
+        AppCompatDelegate.setDefaultNightMode(userStorage.uiMode)
     }
 
     private fun initAutoSize() {

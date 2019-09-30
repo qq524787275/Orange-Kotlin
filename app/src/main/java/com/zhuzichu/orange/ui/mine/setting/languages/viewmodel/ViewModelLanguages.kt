@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.base.ext.map
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.binding.BindingCommand
-import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.common.prefs.UserStorage
 import com.zhuzichu.base.event.SingleLiveEvent
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -19,12 +19,12 @@ class ViewModelLanguages @Inject constructor() : BaseViewModel() {
         const val LOCAL_AR = "ar"
     }
 
-    private val userPreference: UserPreference by lazy { UserPreference() }
+    private val userStorage: UserStorage by lazy { UserStorage() }
 
     val languagesChangeEvent = SingleLiveEvent<String>()
 
     val items = MutableLiveData<List<Any>>().also {
-        val locale = userPreference.locale
+        val locale = userStorage.locale
         it.value = listOf(
             ViewModelItemLanguage(this, "English", LOCAL_EN, locale == LOCAL_EN),
             ViewModelItemLanguage(this, "中文", LOCAL_ZH, locale == LOCAL_ZH),

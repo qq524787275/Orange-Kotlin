@@ -4,11 +4,10 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.base.R
-import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.common.prefs.UserStorage
 import com.zhuzichu.base.ext.localeContextWrapper
 import dagger.android.support.DaggerAppCompatActivity
 
@@ -18,7 +17,7 @@ import java.util.*
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
     abstract fun setNavGraph(): Int
-    private val userPreference: UserPreference by lazy { UserPreference() }
+    private val userStorage: UserStorage by lazy { UserStorage() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +41,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         newBase?.let {
-            super.attachBaseContext(it.localeContextWrapper(Locale(userPreference.locale!!)))
+            super.attachBaseContext(it.localeContextWrapper(Locale(userStorage.locale!!)))
         }
 
     }

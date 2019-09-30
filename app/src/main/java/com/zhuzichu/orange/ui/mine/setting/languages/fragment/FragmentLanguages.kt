@@ -4,7 +4,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import com.zhuzichu.base.base.BaseFragment
 import com.zhuzichu.base.base.DefaultParams
-import com.zhuzichu.base.common.preference.UserPreference
+import com.zhuzichu.base.common.prefs.UserStorage
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentLanguagesBinding
@@ -13,7 +13,7 @@ import com.zhuzichu.orange.ui.mine.setting.languages.viewmodel.ViewModelLanguage
 class FragmentLanguages :
     BaseFragment<DefaultParams, FragmentLanguagesBinding, ViewModelLanguages>() {
 
-    private val userPreference by lazy { UserPreference() }
+    private val userStorage by lazy { UserStorage() }
 
     override fun setLayoutId(): Int = R.layout.fragment_languages
 
@@ -21,7 +21,7 @@ class FragmentLanguages :
 
     override fun initVariable() {
         viewModel.languagesChangeEvent.observe(this, Observer {
-            userPreference.locale = it
+            userStorage.locale = it
             activityCtx.window.setWindowAnimations(R.style.WindowFadeTheme)
             ActivityCompat.recreate(activityCtx)
         })
