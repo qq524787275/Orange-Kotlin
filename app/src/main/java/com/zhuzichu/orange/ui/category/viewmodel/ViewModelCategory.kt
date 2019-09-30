@@ -1,6 +1,6 @@
 package com.zhuzichu.orange.ui.category.viewmodel
 
-import android.app.Application
 import com.zhuzichu.base.base.BaseViewModel
+import javax.inject.Inject
 
-class ViewModelCategory(application: Application) : BaseViewModel(application)
+class ViewModelCategory @Inject constructor() : BaseViewModel()

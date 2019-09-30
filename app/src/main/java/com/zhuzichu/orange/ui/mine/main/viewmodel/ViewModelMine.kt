@@ -1,6 +1,5 @@
 package com.zhuzichu.orange.ui.mine.main.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.ext.map
@@ -9,8 +8,9 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionIcon
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionLine
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
+import javax.inject.Inject
 
-class ViewModelMine(application: Application) : BaseViewModel(application) {
+class ViewModelMine @Inject constructor() : BaseViewModel() {
     companion object {
         const val MAIN_SECTION_SETTING = 0
     }

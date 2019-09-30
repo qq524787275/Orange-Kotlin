@@ -1,6 +1,5 @@
 package com.zhuzichu.orange.ui.mine.setting.theme.viewmodel
 
-import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.base.base.BaseViewModel
@@ -13,8 +12,9 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionColor
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionLable
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
+import javax.inject.Inject
 
-class ViewModelTheme(application: Application) : BaseViewModel(application) {
+class ViewModelTheme @Inject constructor() : BaseViewModel() {
 
     val items = MutableLiveData<List<Any>>()
 

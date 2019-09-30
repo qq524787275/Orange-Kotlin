@@ -23,11 +23,11 @@ public class VisibleDelegate {
     private Handler mHandler;
     private Bundle mSaveInstanceState;
 
-    private IBaseFragment mSupportF;
+    private IBaseFragment mSupport;
     private Fragment mFragment;
 
     public VisibleDelegate(IBaseFragment fragment) {
-        this.mSupportF = fragment;
+        this.mSupport = fragment;
         this.mFragment = (Fragment) fragment;
     }
 
@@ -144,16 +144,16 @@ public class VisibleDelegate {
             if (checkAddState()) {
                 return;
             }
-            mSupportF.onSupportVisible();
+            mSupport.onSupportVisible();
 
             if (mIsFirstVisible) {
                 mIsFirstVisible = false;
-                mSupportF.onLazyInitView(mSaveInstanceState);
+                mSupport.onLazyInitView(mSaveInstanceState);
             }
             dispatchChild(true);
         } else {
             dispatchChild(false);
-            mSupportF.onSupportInvisible();
+            mSupport.onSupportInvisible();
         }
     }
 

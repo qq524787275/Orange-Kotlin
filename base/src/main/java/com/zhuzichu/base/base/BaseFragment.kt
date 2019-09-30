@@ -17,7 +17,9 @@ import androidx.navigation.navOptions
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.zhuzichu.base.R
 import com.zhuzichu.base.ext.toCast
+import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
+import javax.inject.Inject
 
 /**
  * desc:  <br/>
@@ -27,13 +29,19 @@ import java.lang.reflect.ParameterizedType
  */
 
 abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
-    Fragment(),
+    DaggerFragment(),
     IBaseFragment {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     lateinit var binding: TBinding
     lateinit var viewModel: TViewModel
     lateinit var params: TParams
+
     lateinit var contentView: View
     lateinit var activityCtx: Activity
+
     private val lifecycleProvider by lazy { AndroidLifecycleScopeProvider.from(this) }
     private val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
     val visibleDelegate by lazy { VisibleDelegate(this) }
@@ -63,7 +71,9 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     ): View? {
         val type = this::class.java.genericSuperclass
         if (type is ParameterizedType)
-            viewModel = ViewModelProvider(this).get(type.actualTypeArguments[2].toCast())
+            viewModel =
+                ViewModelProvider(this, viewModelFactory).get(type.actualTypeArguments[2].toCast())
+
         lifecycle.addObserver(viewModel)
         contentView = inflater.inflate(setLayoutId(), container, false)
         binding = DataBindingUtil.bind<ViewDataBinding>(contentView).toCast()
@@ -109,6 +119,7 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         visibleDelegate.onHiddenChanged(hidden)
     }
 
+    @Suppress("DEPRECATION")
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         visibleDelegate.setUserVisibleHint(isVisibleToUser)
@@ -147,24 +158,13 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         })
     }
 
-
     @Suppress("DEPRECATION")
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
         activityCtx = activity
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (::viewModel.isInitialized)
-            lifecycle.removeObserver(viewModel)
-        if (::binding.isInitialized)
-            binding.unbind()
-    }
-
     override fun isSupportVisible(): Boolean {
         return visibleDelegate.isSupportVisible
     }
-
 }

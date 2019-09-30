@@ -36,7 +36,9 @@ ext {
             okhttp                  : '3.10.0',
 
             autodispose             : "1.4.0",
-            autosize                : "1.1.2"
+            autosize                : "1.1.2",
+
+            dagger                  : "2.24"
 
     ]
 }

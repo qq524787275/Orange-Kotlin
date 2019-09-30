@@ -1,6 +1,6 @@
 package com.zhuzichu.orange.ui.find.viewmodel
 
-import android.app.Application
 import com.zhuzichu.base.base.BaseViewModel
+import javax.inject.Inject
 
-class ViewModelFind(application: Application) : BaseViewModel(application)
+class ViewModelFind @Inject constructor(): BaseViewModel()

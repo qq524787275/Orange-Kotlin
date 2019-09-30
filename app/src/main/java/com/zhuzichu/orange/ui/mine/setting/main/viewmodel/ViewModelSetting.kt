@@ -1,22 +1,17 @@
 package com.zhuzichu.orange.ui.mine.setting.main.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import com.bumptech.glide.request.RequestOptions
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.ext.map
-import com.zhuzichu.base.ext.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSection
 import com.zhuzichu.orange.common.viewmodel.ViewModelItemSectionLine
-import com.zhuzichu.orange.ui.mine.setting.languages.fragment.FragmentLanguages
-import com.zhuzichu.orange.ui.mine.setting.main.fragment.FragmentSetting
-import com.zhuzichu.orange.ui.mine.setting.theme.fragment.FragmentTheme
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
+import javax.inject.Inject
 
-class ViewModelSetting(application: Application) : BaseViewModel(application) {
+class ViewModelSetting @Inject constructor()  : BaseViewModel() {
 
     companion object {
         const val LANGUAGES = 0x00

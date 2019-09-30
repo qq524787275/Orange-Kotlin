@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.zhuzichu.base.base.ItemViewModel
 import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.common.preference.UserPreference
-import com.zhuzichu.base.ext.toast
 import com.zhuzichu.orange.R
 
 data class ViewModelItemTheme(

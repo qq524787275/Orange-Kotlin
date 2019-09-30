@@ -10,11 +10,12 @@ import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.base.R
 import com.zhuzichu.base.common.preference.UserPreference
 import com.zhuzichu.base.ext.localeContextWrapper
+import dagger.android.support.DaggerAppCompatActivity
 
 import java.util.*
 
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
     abstract fun setNavGraph(): Int
     private val userPreference: UserPreference by lazy { UserPreference() }

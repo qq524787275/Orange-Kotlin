@@ -6,10 +6,11 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.zhuzichu.base.event.SingleLiveEvent
 
-open class BaseViewModel(application: Application) : AndroidViewModel(application), IBaseViewModel {
+open class BaseViewModel : ViewModel(), IBaseViewModel {
 
     lateinit var fragment: Fragment
     lateinit var activityCtx: Activity
@@ -59,7 +60,6 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     fun back() {
         uc.onBackPressedEvent.call()
     }
-
 
 
     inner class UIChangeLiveData {
