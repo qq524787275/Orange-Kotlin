@@ -17,6 +17,7 @@ import java.util.*
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
     abstract fun setNavGraph(): Int
+
     private val userStorage: UserStorage by lazy { UserStorage() }
 
     override fun onCreate(savedInstanceState: Bundle?) {

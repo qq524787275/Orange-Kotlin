@@ -33,7 +33,7 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    var binding: TBinding? = null
+    private lateinit var binding: TBinding
     lateinit var viewModel: TViewModel
     lateinit var params: TParams
 
@@ -66,20 +66,19 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         savedInstanceState: Bundle?
     ): View? {
         val type = this::class.java.genericSuperclass
-        if (type is ParameterizedType)
-            viewModel =
-                ViewModelProvider(this, viewModelFactory).get(type.actualTypeArguments[2].toCast())
-
+        if (type is ParameterizedType) {
+            viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(type.actualTypeArguments[2].toCast())
+        }
         lifecycle.addObserver(viewModel)
         val rootView = inflater.inflate(setLayoutId(), container, false)
         binding = DataBindingUtil.bind<ViewDataBinding>(rootView).toCast()
-        binding?.setVariable(bindVariableId(), viewModel)
+        binding.setVariable(bindVariableId(), viewModel)
         arguments?.let {
             params = it.getParcelable<BaseParams>(Const.PARAMS).toCast()
         }
         return rootView.also {
-            binding?.lifecycleOwner = this
-            binding?.executePendingBindings()
+            binding.lifecycleOwner = this
         }
     }
 
@@ -105,11 +104,6 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     override fun onDestroyView() {
         super.onDestroyView()
         visibleDelegate.onDestroyView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding?.unbind()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
