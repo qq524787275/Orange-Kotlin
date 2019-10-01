@@ -19,13 +19,6 @@ import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
-/**
- * desc:  <br/>
- * time: 2019/9/17 17:35 <br/>
- * author: Coffee <br/>
- * since V 1.2 <br/>
- */
-
 abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
     DaggerFragment(),
     IBaseFragment {

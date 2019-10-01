@@ -9,12 +9,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.ConfigurationCompat
 import java.util.*
 
-/**
- * desc:  <br/>
- * time: 2019/9/17 19:00 <br/>
- * author: Coffee <br/>
- * since V 1.2 <br/>
- */
 @Suppress("UNCHECKED_CAST")
 fun <T> cast(obj: Any?): T {
     return obj as T
