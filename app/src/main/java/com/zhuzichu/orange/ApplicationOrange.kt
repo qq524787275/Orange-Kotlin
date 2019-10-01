@@ -11,7 +11,6 @@ import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 
 import io.reactivex.plugins.RxJavaPlugins.setErrorHandler
-import leakcanary.AppWatcher
 
 import me.jessyan.autosize.AutoSize
 import me.jessyan.autosize.AutoSizeConfig
@@ -26,7 +25,6 @@ class ApplicationOrange : DaggerApplication() {
 
     override fun onCreate() {
         if (BuildConfig.DEBUG) {
-            AppWatcher.config = AppWatcher.config.copy(watchFragmentViews = true)
             enableStrictMode()
         }
         super.onCreate()
