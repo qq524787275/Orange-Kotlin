@@ -5,12 +5,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.zhuzichu.base.ext.toStringByResId
 
-@Suppress("DEPRECATION")
 class DefaultFragmentPagerAdapter(
     fm: FragmentManager,
     private val list: List<Fragment>,
     private val titles: List<Int>? = null
-) : FragmentPagerAdapter(fm, BEHAVIOR_SET_USER_VISIBLE_HINT) {
+) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment = list[position]
 
@@ -22,4 +21,5 @@ class DefaultFragmentPagerAdapter(
         else
             titles[position].toStringByResId()
     }
+
 }
