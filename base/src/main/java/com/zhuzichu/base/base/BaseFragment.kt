@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -31,27 +32,13 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     lateinit var params: TParams
 
     lateinit var activityCtx: Activity
+    private var isInit = false
 
     private val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
-    val visibleDelegate by lazy { VisibleDelegate(this) }
 
     abstract fun setLayoutId(): Int
     abstract fun bindVariableId(): Int
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        visibleDelegate.onCreate(savedInstanceState)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        visibleDelegate.onSaveInstanceState(outState)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        visibleDelegate.onActivityCreated(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,33 +68,10 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         initVariable()
         initView()
         initViewObservable()
-        initData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        visibleDelegate.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        visibleDelegate.onPause()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        visibleDelegate.onDestroyView()
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        visibleDelegate.onHiddenChanged(hidden)
-    }
-
-    @Suppress("DEPRECATION")
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        visibleDelegate.setUserVisibleHint(isVisibleToUser)
+        if (!isInit) {
+            initData()
+        }
+        isInit = true
     }
 
     private fun registUIChangeLiveDataCallback() {
@@ -149,7 +113,4 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         activityCtx = activity
     }
 
-    override fun isSupportVisible(): Boolean {
-        return visibleDelegate.isSupportVisible
-    }
 }

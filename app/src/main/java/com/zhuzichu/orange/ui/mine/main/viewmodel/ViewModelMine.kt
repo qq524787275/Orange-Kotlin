@@ -15,7 +15,7 @@ class ViewModelMine @Inject constructor() : BaseViewModel() {
         const val MAIN_SECTION_SETTING = 0
     }
 
-    private val onClickSection: (Int) -> Unit = {
+    val onClickSection: (Int) -> Unit = {
         when (it) {
             MAIN_SECTION_SETTING -> {
                 startFragment(R.id.action_fragmentMain_to_fragmentSetting)
@@ -25,17 +25,7 @@ class ViewModelMine @Inject constructor() : BaseViewModel() {
         }
     }
 
-    val items = MutableLiveData<List<Any>>().also {
-        it.value = listOf(
-            ViewModelItemSectionLine(),
-            ViewModelItemSectionIcon(
-                MAIN_SECTION_SETTING,
-                R.drawable.ic_setting,
-                R.string.setting,
-                onClickSection
-            )
-        )
-    }
+    val items = MutableLiveData<List<Any>>()
 
     val itemBinding = OnItemBindClass<Any>().apply {
         map<ViewModelItemSectionIcon>(BR.item, R.layout.item_section_icon)
