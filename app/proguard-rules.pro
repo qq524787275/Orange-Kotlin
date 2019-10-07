@@ -113,7 +113,7 @@
 -keep class **.entity.** { *;}
 
 # modle
--keep class **.model.** { *;}
+-keep class **.paramModel.** { *;}
 
 -libraryjars <java.home>/lib/rt.jar(java/**,javax/security/**,javax/activation/**,javax/lang/**)
 

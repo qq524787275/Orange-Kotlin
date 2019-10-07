@@ -35,7 +35,4 @@ interface IBaseViewModel : LifecycleObserver {
     fun onPause() {
     }
 
-    fun initData() {
-
-    }
 }

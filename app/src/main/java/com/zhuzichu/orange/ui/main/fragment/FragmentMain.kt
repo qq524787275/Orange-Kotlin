@@ -1,12 +1,10 @@
 package com.zhuzichu.orange.ui.main.fragment
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.zhuzichu.base.base.BaseFragment
 import com.zhuzichu.base.base.DefaultFragmentPagerAdapter
-import com.zhuzichu.base.base.DefaultParams
+import com.zhuzichu.base.base.ParamModelDefault
 import com.zhuzichu.base.ext.setupWithViewPager
-import com.zhuzichu.base.ext.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentMainBinding
@@ -17,7 +15,7 @@ import com.zhuzichu.orange.ui.main.viewmodel.ViewModelMain
 import com.zhuzichu.orange.ui.mine.main.fragment.FragmentMine
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class FragmentMain : BaseFragment<DefaultParams, FragmentMainBinding, ViewModelMain>() {
+class FragmentMain : BaseFragment<ParamModelDefault, FragmentMainBinding, ViewModelMain>() {
 
     private val fragments = listOf<Fragment>(
         FragmentHome(),

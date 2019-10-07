@@ -11,4 +11,6 @@ interface IBaseFragment {
 
     fun initData() {}
 
+    fun initLazyData() {}
+
 }

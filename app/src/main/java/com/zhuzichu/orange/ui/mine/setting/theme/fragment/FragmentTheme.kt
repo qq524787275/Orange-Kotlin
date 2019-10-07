@@ -3,7 +3,7 @@ package com.zhuzichu.orange.ui.mine.setting.theme.fragment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import com.zhuzichu.base.base.BaseFragment
-import com.zhuzichu.base.base.DefaultParams
+import com.zhuzichu.base.base.ParamModelDefault
 import com.zhuzichu.base.common.prefs.UserStorage
 import com.zhuzichu.base.ext.getPrimaryColor
 import com.zhuzichu.base.ext.getSecondaryColor
@@ -12,7 +12,7 @@ import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentThemeBinding
 import com.zhuzichu.orange.ui.mine.setting.theme.viewmodel.ViewModelTheme
 
-class FragmentTheme : BaseFragment<DefaultParams, FragmentThemeBinding, ViewModelTheme>() {
+class FragmentTheme : BaseFragment<ParamModelDefault, FragmentThemeBinding, ViewModelTheme>() {
 
     private val userStorage: UserStorage by lazy { UserStorage() }
 

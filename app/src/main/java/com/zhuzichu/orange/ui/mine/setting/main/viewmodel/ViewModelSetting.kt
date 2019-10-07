@@ -54,4 +54,9 @@ class ViewModelSetting @Inject constructor() : BaseViewModel() {
     val onClickNavigation = BindingCommand<Any>({
         back()
     })
+
+    override fun onStart() {
+        super.onStart()
+
+    }
 }

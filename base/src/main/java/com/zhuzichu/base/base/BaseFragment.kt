@@ -1,12 +1,12 @@
 package com.zhuzichu.base.base
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -20,7 +20,7 @@ import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
-abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
+abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
     DaggerFragment(),
     IBaseFragment {
 
@@ -32,7 +32,9 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
     lateinit var params: TParams
 
     lateinit var activityCtx: Activity
-    private var isInit = false
+
+    private var isInitData = false
+    private var isInitLazy = false
 
     private val navController by lazy { activityCtx.findNavController(R.id.delegate_container) }
 
@@ -51,12 +53,15 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
                 .get(type.actualTypeArguments[2].toCast())
         }
         lifecycle.addObserver(viewModel)
+
         val rootView = inflater.inflate(setLayoutId(), container, false)
         binding = DataBindingUtil.bind<ViewDataBinding>(rootView).toCast()
         binding.setVariable(bindVariableId(), viewModel)
+
         arguments?.let {
-            params = it.getParcelable<BaseParams>(Const.PARAMS).toCast()
+            params = it.getParcelable<BaseParamModel>(Const.PARAMS).toCast()
         }
+
         return rootView.also {
             binding.lifecycleOwner = this
         }
@@ -68,16 +73,24 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         initVariable()
         initView()
         initViewObservable()
-        if (!isInit) {
+        if (!isInitData) {
             initData()
+            isInitData = true
         }
-        isInit = true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isInitLazy) {
+            initLazyData()
+            isInitLazy = true
+        }
     }
 
     private fun registUIChangeLiveDataCallback() {
         viewModel.uc.startActivityEvent.observe(this, Observer {
             val clz = it[Const.CLASS] as Class<*>
-            val params = it[Const.PARAMS] as BaseParams
+            val params = it[Const.PARAMS] as BaseParamModel
             val isPop = it[Const.POP] as Boolean
             val requestCode = it[Const.REQUEST_CODE] as Int
             val options = it[Const.OPTIONS] as Bundle
@@ -91,7 +104,7 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
 
         viewModel.uc.startFragmentEvent.observe(this, Observer {
             val actionId = it[Const.ACTION_ID] as Int
-            val params = it[Const.PARAMS] as BaseParams
+            val params = it[Const.PARAMS] as BaseParamModel
             navController.navigate(actionId, bundleOf(Const.PARAMS to params), navOptions {
                 anim {
                     enter = R.anim.slide_in_right // 进入页面动画
@@ -107,10 +120,8 @@ abstract class BaseFragment<TParams : BaseParams, TBinding : ViewDataBinding, TV
         })
     }
 
-    @Suppress("DEPRECATION")
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        activityCtx = activity
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activityCtx = requireActivity()
     }
-
 }
