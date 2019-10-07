@@ -55,8 +55,4 @@ class ViewModelSetting @Inject constructor() : BaseViewModel() {
         back()
     })
 
-    override fun onStart() {
-        super.onStart()
-
-    }
 }

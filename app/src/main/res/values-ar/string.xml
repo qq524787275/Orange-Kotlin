@@ -21,4 +21,6 @@
     <string name="settings_theme_dark">غامق</string>
     <string name="settings_theme_battery">الضبط حسب ميزة "توفير شحن البطارية"</string>
 
+    <string name="mine_click_login">انقر لتسجيل الدخول</string>
+
 </resources>

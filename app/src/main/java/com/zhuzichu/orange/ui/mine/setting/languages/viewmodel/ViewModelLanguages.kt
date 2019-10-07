@@ -23,9 +23,11 @@ class ViewModelLanguages @Inject constructor() : BaseViewModel() {
 
     val languagesChangeEvent = SingleLiveEvent<String>()
 
-    val items = MutableLiveData<List<Any>>().also {
+    val items = MutableLiveData<List<Any>>()
+
+    fun loadSectionLable() {
         val locale = userStorage.locale
-        it.value = listOf(
+        items.value = listOf(
             ViewModelItemLanguage(this, "English", LOCAL_EN, locale == LOCAL_EN),
             ViewModelItemLanguage(this, "中文", LOCAL_ZH, locale == LOCAL_ZH),
             ViewModelItemLanguage(this, "عربى", LOCAL_AR, locale == LOCAL_AR)

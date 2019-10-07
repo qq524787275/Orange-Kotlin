@@ -11,9 +11,6 @@ data class ViewModelItemLanguage(
 ) : ItemViewModel() {
 
     val onClickItem = BindingCommand<Any>({
-        viewModel.items.value = viewModel.items.value?.map {
-            (it as ViewModelItemLanguage).copy(isSelected = it.title == title)
-        }
         viewModel.languagesChangeEvent.value = locale
     })
 }

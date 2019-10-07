@@ -21,5 +21,6 @@
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_theme_battery">Set by Battery Saver</string>
 
+    <string name="mine_click_login">Click to Login</string>
 
 </resources>

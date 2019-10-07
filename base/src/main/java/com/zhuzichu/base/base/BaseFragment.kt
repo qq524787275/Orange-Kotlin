@@ -47,28 +47,22 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val type = this::class.java.genericSuperclass
-        if (type is ParameterizedType) {
-            viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(type.actualTypeArguments[2].toCast())
-        }
-        lifecycle.addObserver(viewModel)
-
-        val rootView = inflater.inflate(setLayoutId(), container, false)
-        binding = DataBindingUtil.bind<ViewDataBinding>(rootView).toCast()
-        binding.setVariable(bindVariableId(), viewModel)
-
         arguments?.let {
             params = it.getParcelable<BaseParamModel>(Const.PARAMS).toCast()
         }
-
-        return rootView.also {
-            binding.lifecycleOwner = this
-        }
+        binding = DataBindingUtil.inflate(
+            inflater,
+            setLayoutId(),
+            container,
+            false
+        )
+        return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewDataBinding()
         registUIChangeLiveDataCallback()
         initVariable()
         initView()
@@ -85,6 +79,16 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
             initLazyData()
             isInitLazy = true
         }
+    }
+
+    private fun initViewDataBinding() {
+        val type = this::class.java.genericSuperclass
+        if (type is ParameterizedType) {
+            viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(type.actualTypeArguments[2].toCast())
+        }
+        binding.setVariable(bindVariableId(), viewModel)
+        lifecycle.addObserver(viewModel)
     }
 
     private fun registUIChangeLiveDataCallback() {
@@ -124,4 +128,11 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
         super.onAttach(context)
         activityCtx = requireActivity()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.unbind()
+        lifecycle.removeObserver(viewModel)
+    }
+
 }

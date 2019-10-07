@@ -2,6 +2,7 @@ package com.zhuzichu.orange.ui.mine.setting.theme.viewmodel
 
 import com.zhuzichu.base.base.ItemViewModel
 import com.zhuzichu.base.binding.BindingCommand
+import com.zhuzichu.base.ext.toast
 
 data class ViewModelItemTheme(
     val viewModel: ViewModelTheme,
@@ -11,13 +12,6 @@ data class ViewModelItemTheme(
 ) : ItemViewModel() {
 
     val onClickItem = BindingCommand<Any>({
-        viewModel.items.value = viewModel.items.value?.map {
-            if (it is ViewModelItemTheme) {
-                it.copy(isSelected = it.titleId == titleId)
-            } else {
-                it
-            }
-        }
-        viewModel.themeChangeEvent.value =mode
+        viewModel.themeChangeEvent.value = mode
     })
 }

@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import com.zhuzichu.base.global.AppGlobal.context
 
-class UserStorage{
+class UserStorage {
 
     companion object {
         const val PREFS_NAME = "user-preference"
@@ -20,4 +20,6 @@ class UserStorage{
 
     var locale by StringPreference(prefs, "zh")
     var uiMode by IntPreference(prefs, defaultValue = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    var token by StringPreference(prefs, defaultValue = null)
+
 }

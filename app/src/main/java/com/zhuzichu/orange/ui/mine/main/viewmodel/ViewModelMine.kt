@@ -2,6 +2,7 @@ package com.zhuzichu.orange.ui.mine.main.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.zhuzichu.base.base.BaseViewModel
+import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.ext.map
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -43,4 +44,9 @@ class ViewModelMine @Inject constructor() : BaseViewModel() {
         map<ViewModelItemSectionIcon>(BR.item, R.layout.item_section_icon)
         map<ViewModelItemSectionLine>(BR.item, R.layout.item_section_line)
     }
+
+    val onClickLogin = BindingCommand<Any>({
+        startFragment(R.id.action_fragmentMain_to_fragmentLogin)
+    })
+
 }

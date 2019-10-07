@@ -21,4 +21,6 @@
     <string name="settings_theme_dark">深色</string>
     <string name="settings_theme_battery">根据省电模式设置</string>
 
+    <string name="mine_click_login">点击登录</string>
+
 </resources>

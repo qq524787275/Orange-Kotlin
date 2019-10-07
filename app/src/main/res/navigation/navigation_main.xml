@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/fragmentMain">
+    app:startDestination="@id/fragmentMain"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/fragmentMain"
         android:name="com.zhuzichu.orange.ui.main.fragment.FragmentMain"
-        android:label="FragmentMain">
+        android:label="FragmentMain"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_fragmentMain_to_fragmentSetting"
             app:destination="@id/fragmentSetting" />
+        <action
+            android:id="@+id/action_fragmentMain_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentSetting"
         android:name="com.zhuzichu.orange.ui.mine.setting.main.fragment.FragmentSetting"
-        android:label="FragmentSetting" >
+        android:label="FragmentSetting"
+        tools:layout="@layout/fragment_setting">
         <action
             android:id="@+id/action_fragmentSetting_to_fragmentLanguages"
             app:destination="@id/fragmentLanguages" />
@@ -24,14 +31,24 @@
             android:id="@+id/action_fragmentSetting_to_fragmentTheme"
             app:destination="@id/fragmentTheme" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentLanguages"
         android:name="com.zhuzichu.orange.ui.mine.setting.languages.fragment.FragmentLanguages"
-        android:label="FragmentLanguages" />
+        android:label="FragmentLanguages"
+        tools:layout="@layout/fragment_languages" />
+
     <fragment
         android:id="@+id/fragmentTheme"
         android:name="com.zhuzichu.orange.ui.mine.setting.theme.fragment.FragmentTheme"
-        android:label="FragmentTheme" />
+        android:label="FragmentTheme"
+        tools:layout="@layout/fragment_theme" />
+
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.zhuzichu.orange.ui.mine.login.fragment.FragmentLogin"
+        android:label="FragmentLogin"
+        tools:layout="@layout/fragment_login" />
 
 
 </navigation>

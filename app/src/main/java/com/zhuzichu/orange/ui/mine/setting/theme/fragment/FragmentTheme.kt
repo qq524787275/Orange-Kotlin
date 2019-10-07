@@ -7,6 +7,7 @@ import com.zhuzichu.base.base.ParamModelDefault
 import com.zhuzichu.base.common.prefs.UserStorage
 import com.zhuzichu.base.ext.getPrimaryColor
 import com.zhuzichu.base.ext.getSecondaryColor
+import com.zhuzichu.base.ext.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentThemeBinding
@@ -29,6 +30,7 @@ class FragmentTheme : BaseFragment<ParamModelDefault, FragmentThemeBinding, View
             activityCtx.window.setWindowAnimations(R.style.WindowFadeTheme)
             userStorage.uiMode = it
             AppCompatDelegate.setDefaultNightMode(userStorage.uiMode)
+            activityCtx.recreate()
         })
     }
 }

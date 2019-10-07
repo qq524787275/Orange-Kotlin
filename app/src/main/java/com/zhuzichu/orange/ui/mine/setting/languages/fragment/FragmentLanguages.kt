@@ -26,4 +26,8 @@ class FragmentLanguages :
             ActivityCompat.recreate(activityCtx)
         })
     }
+
+    override fun initData() {
+        viewModel.loadSectionLable()
+    }
 }

@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.ui.mine.Theme.theme.module
+package com.zhuzichu.orange.ui.mine.setting.theme.module
 
 import androidx.lifecycle.ViewModel
 import com.zhuzichu.base.di.ViewModelKey
