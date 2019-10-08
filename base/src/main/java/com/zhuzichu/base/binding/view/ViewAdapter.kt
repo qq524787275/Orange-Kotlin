@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.autoDispose
 import com.zhuzichu.base.binding.BindingCommand
+import com.zhuzichu.base.ext.showSoftInput
 import java.util.concurrent.TimeUnit
 
 //防重复点击间隔(毫秒)
@@ -26,6 +27,15 @@ fun bindViewClick(view: View, clickCommand: BindingCommand<*>?, isThrottleFirst:
                 .subscribe {
                     clickCommand?.execute()
                 }
+        }
+    }
+}
+
+@BindingAdapter(value = ["showSoftInput"], requireAll = false)
+fun bindViewSoftInput(view: View, isShow: Boolean = false) {
+    if (isShow) {
+        view.post {
+            showSoftInput(view)
         }
     }
 }

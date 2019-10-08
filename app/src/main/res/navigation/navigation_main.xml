@@ -14,9 +14,6 @@
         <action
             android:id="@+id/action_fragmentMain_to_fragmentSetting"
             app:destination="@id/fragmentSetting" />
-        <action
-            android:id="@+id/action_fragmentMain_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
     </fragment>
 
     <fragment
@@ -43,12 +40,6 @@
         android:name="com.zhuzichu.orange.ui.mine.setting.theme.fragment.FragmentTheme"
         android:label="FragmentTheme"
         tools:layout="@layout/fragment_theme" />
-
-    <fragment
-        android:id="@+id/fragmentLogin"
-        android:name="com.zhuzichu.orange.ui.mine.login.fragment.FragmentLogin"
-        android:label="FragmentLogin"
-        tools:layout="@layout/fragment_login" />
 
 
 </navigation>

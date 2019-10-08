@@ -14,9 +14,9 @@ import javax.inject.Inject
 class ViewModelLanguages @Inject constructor() : BaseViewModel() {
 
     companion object {
-        const val LOCAL_EN = "en"
-        const val LOCAL_ZH = "zh"
-        const val LOCAL_AR = "ar"
+        private const val LOCAL_EN = "en"
+        private const val LOCAL_ZH = "zh"
+        private const val LOCAL_AR = "ar"
     }
 
     private val userStorage: UserStorage by lazy { UserStorage() }

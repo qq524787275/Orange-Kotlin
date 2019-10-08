@@ -25,7 +25,6 @@ class ApplicationOrange : DaggerApplication() {
 
     override fun onCreate() {
         if (BuildConfig.DEBUG) {
-            enableStrictMode()
         }
         super.onCreate()
         AppGlobal.init(this)
@@ -37,17 +36,12 @@ class ApplicationOrange : DaggerApplication() {
     }
 
     private fun initAutoSize() {
-        AutoSizeConfig.getInstance()
-            .setCustomFragment(false)
-            .setLog(false)
-            .setUseDeviceSize(false).isBaseOnWidth = true
-        AutoSize.initCompatMultiProcess(this)
+
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent.factory().create(this)
     }
-
 
     private fun enableStrictMode() {
         StrictMode.setThreadPolicy(

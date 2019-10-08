@@ -12,10 +12,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
 import com.zhuzichu.base.R
+import com.zhuzichu.base.ext.hideSoftInput
 import com.zhuzichu.base.ext.toCast
+import com.zhuzichu.base.widget.loading.DialogFragmengLoading
+import com.zhuzichu.base.widget.loading.LoadingMaker
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
@@ -27,7 +32,7 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var binding: TBinding
+    var binding: TBinding? = null
     lateinit var viewModel: TViewModel
     lateinit var params: TParams
 
@@ -56,9 +61,9 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
             container,
             false
         )
-        return binding.root
+        binding?.lifecycleOwner = this
+        return binding?.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -87,8 +92,9 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
             viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(type.actualTypeArguments[2].toCast())
         }
-        binding.setVariable(bindVariableId(), viewModel)
+        binding?.setVariable(bindVariableId(), viewModel)
         lifecycle.addObserver(viewModel)
+        viewModel.injectLifecycleOwner(viewLifecycleOwner)
     }
 
     private fun registUIChangeLiveDataCallback() {
@@ -109,18 +115,28 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
         viewModel.uc.startFragmentEvent.observe(this, Observer {
             val actionId = it[Const.ACTION_ID] as Int
             val params = it[Const.PARAMS] as BaseParamModel
-            navController.navigate(actionId, bundleOf(Const.PARAMS to params), navOptions {
-                anim {
-                    enter = R.anim.slide_in_right // 进入页面动画
-                    exit = R.anim.slide_out_left
-                    popEnter = R.anim.slide_in_left  // 弹出栈动画
-                    popExit = R.anim.slide_out_right
-                }
-            })
+
+            navController.navigate(
+                actionId,
+                bundleOf(Const.PARAMS to params)
+            )
         })
 
         viewModel.uc.onBackPressedEvent.observe(this, Observer {
             activityCtx.onBackPressed()
+        })
+
+        viewModel.uc.showLoadingEvent.observe(this, Observer {
+            activityCtx.hideSoftInput()
+            view?.postDelayed({
+                LoadingMaker.showLoadingDialog(requireContext())
+            }, 150)
+        })
+
+        viewModel.uc.hideLoadingEvent.observe(this, Observer {
+            view?.postDelayed({
+                LoadingMaker.dismissLodingDialog()
+            }, 150)
         })
     }
 
@@ -131,8 +147,8 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.unbind()
-        lifecycle.removeObserver(viewModel)
+        binding?.unbind()
+        binding = null
     }
 
 }

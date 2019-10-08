@@ -1,9 +1,9 @@
-package com.zhuzichu.orange.ui.mine.login.module
+package com.zhuzichu.orange.ui.account.login.module
 
 import androidx.lifecycle.ViewModel
 import com.zhuzichu.base.di.ViewModelKey
-import com.zhuzichu.orange.ui.mine.login.fragment.FragmentLogin
-import com.zhuzichu.orange.ui.mine.login.viewmodel.ViewModelLogin
+import com.zhuzichu.orange.ui.account.login.fragment.FragmentLogin
+import com.zhuzichu.orange.ui.account.login.viewmodel.ViewModelLogin
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

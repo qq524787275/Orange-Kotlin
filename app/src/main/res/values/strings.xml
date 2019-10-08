@@ -23,4 +23,10 @@
 
     <string name="mine_click_login">Click to Login</string>
 
+    <string name="login_title">Welcome to Orange Street</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
 </resources>

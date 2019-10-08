@@ -67,6 +67,14 @@ object RetrofitManager {
         retrofitMap.put("$baseUrl-$isJson-$isEncrypt", builder.build())
     }
 
+    fun getRetrofit(baseUrl: String, isJson: Boolean = true, isEncrypt: Boolean = true): Retrofit {
+        val key = "$baseUrl-$isJson-$isEncrypt"
+        if (!retrofitMap.containsKey(key)) {
+            createRetrofit(baseUrl, isJson, isEncrypt)
+        }
+        return retrofitMap[key]!!
+    }
+
 
     /**
      * 拦截器

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="alphaEmphasisHigh" format="float"/>
+    <attr name="alphaEmphasisMedium" format="float"/>
+    <attr name="alphaEmphasisDisabled" format="float"/>
+
     <!--****************************** BindingCollectionAdapters ******************************-->
     <attr name="items" format="reference" />
     <attr name="itemBinding" format="reference" />
@@ -34,6 +38,7 @@
     <declare-styleable name="View">
         <attr name="onClickCommand" format="reference" />
         <attr name="isThrottleFirst" format="boolean" />
+        <attr name="showSoftInput" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="NiceToolbar">
@@ -48,4 +53,5 @@
     <declare-styleable name="CircleView">
         <attr name="circleColor" format="reference" />
     </declare-styleable>
+
 </resources>

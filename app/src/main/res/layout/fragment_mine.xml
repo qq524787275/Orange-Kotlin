@@ -38,19 +38,20 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_account"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:onClickCommand="@{viewModel.isLogin()==true?viewModel.onClickEdit:viewModel.onClickLogin}" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/mine_click_login"
+            android:text="@{viewModel.isLogin()==true?viewModel.userInfo.phone:@string/mine_click_login}"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/avatar"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toTopOf="@+id/avatar"
-            app:onClickCommand="@{viewModel.onClickLogin}"
+            app:onClickCommand="@{viewModel.isLogin()==true?viewModel.onClickEdit:viewModel.onClickLogin}"
             tools:text="@string/mine_click_login" />
 
         <androidx.recyclerview.widget.RecyclerView

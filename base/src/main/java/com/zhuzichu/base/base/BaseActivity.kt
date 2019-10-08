@@ -8,8 +8,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.base.R
 import com.zhuzichu.base.common.prefs.UserStorage
+import com.zhuzichu.base.ext.hideSoftInput
 import com.zhuzichu.base.ext.localeContextWrapper
+import com.zhuzichu.base.ext.toast
 import dagger.android.support.DaggerAppCompatActivity
+import me.jessyan.autosize.AutoSize
 
 import java.util.*
 
@@ -61,4 +64,5 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.delegate_container).navigateUp() || super.onSupportNavigateUp()
     }
+
 }

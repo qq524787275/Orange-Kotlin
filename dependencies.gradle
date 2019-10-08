@@ -8,6 +8,7 @@ ext {
             androidxCore            : '1.1.0',
             androidxAnnotation      : '1.1.0',
             androidxRecyclerView    : '1.1.0-beta04',
+            androidxRefreshLayout   : '1.0.0',
             androidxConstraintlayout: '2.0.0-beta2',
             androidxFlexbox         : '1.1.0',
             androidxMaterial        : '1.1.0-beta01',

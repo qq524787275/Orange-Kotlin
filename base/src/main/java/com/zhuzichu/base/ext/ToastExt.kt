@@ -9,7 +9,7 @@ import androidx.annotation.NonNull
 import com.zhuzichu.base.R
 import com.zhuzichu.base.global.AppGlobal
 
-fun toast(message: String, duration: Int = Toast.LENGTH_SHORT) =
+fun toast(message: String?, duration: Int = Toast.LENGTH_SHORT) =
     makeText(AppGlobal.context, message, duration).show()
 
 fun Any.toast(duration: Int = Toast.LENGTH_SHORT): Any {
@@ -20,7 +20,7 @@ fun Any.toast(duration: Int = Toast.LENGTH_SHORT): Any {
 
 fun makeText(
     @NonNull context: Context,
-    @NonNull text: CharSequence,
+    @NonNull text: CharSequence?,
     duration: Int
 ): Toast {
     val result = Toast(context)

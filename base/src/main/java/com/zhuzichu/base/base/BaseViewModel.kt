@@ -2,12 +2,16 @@ package com.zhuzichu.base.base
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import com.zhuzichu.base.event.SingleLiveEvent
+import com.zhuzichu.base.ext.toast
+import com.zhuzichu.base.http.exception.ResponseThrowable
 
 open class BaseViewModel : ViewModel(), IBaseViewModel {
 
     val uc by lazy { UIChangeLiveData() }
+    lateinit var lifecycleOwner: LifecycleOwner
 
     fun startActivity(
         clz: Class<*>,
@@ -25,25 +29,42 @@ open class BaseViewModel : ViewModel(), IBaseViewModel {
         uc.startActivityEvent.postValue(map)
     }
 
-    fun startFragment(
-        actionId: Int,
-        paramModel: BaseParamModel = ParamModelDefault()
-    ) {
+    fun startFragment(actionId: Int, paramModel: BaseParamModel = ParamModelDefault()) {
         val map = HashMap<String, Any>()
         map[Const.PARAMS] = paramModel
         map[Const.ACTION_ID] = actionId
         uc.startFragmentEvent.postValue(map)
     }
 
-
     fun back() {
         uc.onBackPressedEvent.call()
+    }
+
+    fun showLoading() {
+        uc.showLoadingEvent.call()
+    }
+
+    fun hideLoading() {
+        uc.hideLoadingEvent.call()
+    }
+
+    fun handleThrowable(throwable: Throwable) {
+        when (throwable) {
+            is ResponseThrowable -> toast(throwable.msg)
+        }
+        throwable.printStackTrace()
+    }
+
+    fun injectLifecycleOwner(viewLifecycleOwner: LifecycleOwner) {
+        this.lifecycleOwner = viewLifecycleOwner
     }
 
     inner class UIChangeLiveData {
         val startActivityEvent: SingleLiveEvent<Map<String, Any>> = SingleLiveEvent()
         val startFragmentEvent: SingleLiveEvent<Map<String, Any>> = SingleLiveEvent()
         val onBackPressedEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        val showLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        val hideLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     }
 
 }

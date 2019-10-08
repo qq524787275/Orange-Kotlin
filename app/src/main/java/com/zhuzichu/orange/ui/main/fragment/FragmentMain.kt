@@ -17,25 +17,30 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class FragmentMain : BaseFragment<ParamModelDefault, FragmentMainBinding, ViewModelMain>() {
 
-    private val fragments = listOf<Fragment>(
-        FragmentHome(),
-        FragmentCategory(),
-        FragmentFind(),
-        FragmentMine()
-    )
-
     override fun setLayoutId(): Int = R.layout.fragment_main
 
     override fun bindVariableId(): Int = BR.viewModel
 
     override fun initView() {
-        content.offscreenPageLimit = fragments.size
-        content.adapter = DefaultFragmentPagerAdapter(
-            childFragmentManager, fragments, listOf(
-                R.string.home, R.string.category, R.string.find, R.string.mine
-            )
+
+        val fragments = listOf<Fragment>(
+            FragmentHome(),
+            FragmentCategory(),
+            FragmentFind(),
+            FragmentMine()
         )
+
+        val titles = listOf(
+            R.string.home,
+            R.string.category,
+            R.string.find,
+            R.string.mine
+        )
+
+        content.offscreenPageLimit = fragments.size
+        content.adapter = DefaultFragmentPagerAdapter(childFragmentManager, fragments, titles)
         bottom.setupWithViewPager(content)
+
     }
 
 }

@@ -2,15 +2,41 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhuzichu.orange">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 下载时不提示通知栏 -->
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.MANAGE_LOCATION_POLICY" />
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 添加如下权限，以便使用更多的第三方SDK和更精准的统计数据 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- iBeancon功能所需权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:name=".ApplicationOrange"
         android:allowBackup="true"
+        android:configChanges="uiMode"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme.DayNight"
-        android:configChanges="uiMode">
+        android:usesCleartextTraffic="true">
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -24,7 +50,9 @@
             android:name="design_height_in_dp"
             android:value="720" />
 
-        <activity android:name=".ui.ActivityMain">
+        <activity
+            android:name=".ui.ActivityMain"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +60,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.account.ActivityAccount"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
     </application>
 </manifest>

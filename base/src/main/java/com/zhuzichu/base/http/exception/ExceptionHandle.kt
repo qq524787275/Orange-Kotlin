@@ -55,10 +55,7 @@ class ExceptionHandle {
             } else if (e is SSLException) {
                 ex.msg = HttpCode.SSL_ERROR.msg
                 ex.code = HttpCode.SSL_ERROR.code
-            } else if (e is SocketTimeoutException) {
-                ex.msg = HttpCode.TIMEOUT_ERROR.msg
-                ex.code = HttpCode.TIMEOUT_ERROR.code
-            } else if (e is UnknownHostException) {
+            } else if (e is SocketTimeoutException || e is UnknownHostException) {
                 ex.msg = HttpCode.TIMEOUT_ERROR.msg
                 ex.code = HttpCode.TIMEOUT_ERROR.code
             } else if (e is ResponseThrowable) {

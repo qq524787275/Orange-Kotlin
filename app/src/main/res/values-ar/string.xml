@@ -23,4 +23,10 @@
 
     <string name="mine_click_login">انقر لتسجيل الدخول</string>
 
+    <string name="login_title">مرحبًا بكم في شارع أورانج</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="register">تسجيل</string>
+
 </resources>
