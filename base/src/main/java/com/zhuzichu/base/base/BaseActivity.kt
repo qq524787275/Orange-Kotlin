@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.activity.addCallback
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.base.R
@@ -23,10 +24,13 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     private val userStorage: UserStorage by lazy { UserStorage() }
 
+    val navController by lazy { findNavController(R.id.delegate_container) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         delegate.onCreate(savedInstanceState)
         initContainer(savedInstanceState)
+
     }
 
     private fun initContainer(savedInstanceState: Bundle?) {
@@ -59,10 +63,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
             overrideConfiguration.uiMode = uiMode
         }
         super.applyOverrideConfiguration(overrideConfiguration)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.delegate_container).navigateUp() || super.onSupportNavigateUp()
     }
 
 }

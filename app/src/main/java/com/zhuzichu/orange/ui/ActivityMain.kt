@@ -7,4 +7,5 @@ class ActivityMain : BaseActivity() {
 
     override fun setNavGraph(): Int = R.navigation.navigation_main
 
+
 }

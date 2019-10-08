@@ -12,9 +12,6 @@ import dagger.android.support.DaggerApplication
 
 import io.reactivex.plugins.RxJavaPlugins.setErrorHandler
 
-import me.jessyan.autosize.AutoSize
-import me.jessyan.autosize.AutoSizeConfig
-
 /**
  * @author Administrator
  */
@@ -22,21 +19,15 @@ class ApplicationOrange : DaggerApplication() {
 
     private val userStorage: UserStorage by lazy { UserStorage() }
 
-
     override fun onCreate() {
         if (BuildConfig.DEBUG) {
         }
         super.onCreate()
         AppGlobal.init(this)
-        initAutoSize()
         setErrorHandler {
 
         }
         AppCompatDelegate.setDefaultNightMode(userStorage.uiMode)
-    }
-
-    private fun initAutoSize() {
-
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

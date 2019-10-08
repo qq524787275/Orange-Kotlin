@@ -5,6 +5,8 @@
     <string name="find">Find</string>
     <string name="mine">Mine</string>
 
+    <string name="press_again_exit">Press again to exit</string>
+
     <string name="setting">Settings</string>
     <string name="cancel">Cancel</string>
     <string name="languages">Languages</string>
