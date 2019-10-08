@@ -12,14 +12,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDestination
-import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
-import androidx.navigation.navOptions
+import androidx.navigation.*
 import com.zhuzichu.base.R
 import com.zhuzichu.base.ext.hideSoftInput
 import com.zhuzichu.base.ext.toCast
-import com.zhuzichu.base.widget.loading.DialogFragmengLoading
 import com.zhuzichu.base.widget.loading.LoadingMaker
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
@@ -67,7 +63,10 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initViewDataBinding()
+        initBackPressedListener()
+
         registUIChangeLiveDataCallback()
         initVariable()
         initView()
@@ -76,6 +75,10 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
             initData()
             isInitData = true
         }
+    }
+
+    private fun initBackPressedListener() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {}
     }
 
     override fun onResume() {
@@ -118,7 +121,8 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
 
             navController.navigate(
                 actionId,
-                bundleOf(Const.PARAMS to params)
+                bundleOf(Const.PARAMS to params),
+                getDefaultNavOptions(actionId)
             )
         })
 
@@ -138,6 +142,26 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
                 LoadingMaker.dismissLodingDialog()
             }, 150)
         })
+    }
+
+    private fun getDefaultNavOptions(actionId: Int): NavOptions? {
+        val navOptions = navController.currentDestination?.getAction(actionId)?.navOptions
+        var options: NavOptions? = null
+        navOptions?.let {
+            options = navOptions {
+                anim {
+                    enter = R.anim.slide_in_right
+                    exit = R.anim.slide_out_left
+                    popEnter = R.anim.slide_in_left
+                    popExit = R.anim.slide_out_right
+                }
+                launchSingleTop = navOptions.shouldLaunchSingleTop()
+                popUpTo(navOptions.popUpTo) {
+                    this.inclusive = navOptions.isPopUpToInclusive
+                }
+            }
+        }
+        return options
     }
 
     override fun onAttach(context: Context) {
