@@ -33,7 +33,8 @@
         android:id="@+id/fragmentLanguages"
         android:name="com.zhuzichu.orange.ui.mine.setting.languages.fragment.FragmentLanguages"
         android:label="FragmentLanguages"
-        tools:layout="@layout/fragment_languages" />
+        tools:layout="@layout/fragment_languages">
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentTheme"
