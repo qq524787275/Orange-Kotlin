@@ -1,4 +1,4 @@
-package com.zhuzichu.orange.entity
+package com.zhuzichu.orange.ui.account.login.entity
 
 data class BeanUserInfo(
     var avatarUrl: String = "",

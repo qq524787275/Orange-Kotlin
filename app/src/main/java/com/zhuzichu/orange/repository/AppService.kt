@@ -1,7 +1,7 @@
 package com.zhuzichu.orange.repository
 
 import com.zhuzichu.base.entity.BaseRes
-import com.zhuzichu.orange.entity.BeanToken
+import com.zhuzichu.orange.ui.account.login.entity.BeanToken
 import io.reactivex.Flowable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

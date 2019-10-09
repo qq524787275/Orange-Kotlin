@@ -9,11 +9,13 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentLanguagesBinding
 import com.zhuzichu.orange.ui.mine.setting.languages.viewmodel.ViewModelLanguages
+import javax.inject.Inject
 
 class FragmentLanguages :
     BaseFragment<ParamModelDefault, FragmentLanguagesBinding, ViewModelLanguages>() {
 
-    private val userStorage by lazy { UserStorage() }
+    @Inject
+    lateinit var userStorage: UserStorage
 
     override fun setLayoutId(): Int = R.layout.fragment_languages
 

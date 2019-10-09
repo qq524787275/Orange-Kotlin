@@ -39,7 +39,8 @@ ext {
             autodispose             : "1.4.0",
             autosize                : "1.1.2",
 
-            dagger                  : "2.24"
+            dagger                  : "2.24",
+            timber                  : "4.7.1"
 
     ]
 }

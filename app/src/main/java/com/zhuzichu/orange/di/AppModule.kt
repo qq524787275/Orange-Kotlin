@@ -1,10 +1,9 @@
 package com.zhuzichu.orange.di
 
 import android.content.Context
+import com.zhuzichu.base.common.prefs.UserStorage
 import com.zhuzichu.orange.ApplicationOrange
 import com.zhuzichu.orange.manager.AccountManager
-import com.zhuzichu.orange.repository.NetRepository
-import com.zhuzichu.orange.repository.NetRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -18,9 +17,9 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesNetRepository(): NetRepository = NetRepositoryImpl()
+    fun providesAccountManager(): AccountManager = AccountManager()
 
     @Singleton
     @Provides
-    fun providesAccountManager(): AccountManager = AccountManager()
+    fun providesUserStorage(): UserStorage = UserStorage()
 }

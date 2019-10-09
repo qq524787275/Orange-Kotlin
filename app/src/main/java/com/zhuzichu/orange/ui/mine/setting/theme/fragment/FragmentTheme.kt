@@ -11,10 +11,12 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.databinding.FragmentThemeBinding
 import com.zhuzichu.orange.ui.mine.setting.theme.viewmodel.ViewModelTheme
+import javax.inject.Inject
 
 class FragmentTheme : BaseFragment<ParamModelDefault, FragmentThemeBinding, ViewModelTheme>() {
 
-    private val userStorage: UserStorage by lazy { UserStorage() }
+    @Inject
+    lateinit var userStorage: UserStorage
 
     override fun setLayoutId(): Int = R.layout.fragment_theme
 

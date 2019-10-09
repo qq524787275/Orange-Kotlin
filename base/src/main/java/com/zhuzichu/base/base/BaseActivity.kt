@@ -4,16 +4,12 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.activity.addCallback
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.zhuzichu.base.R
 import com.zhuzichu.base.common.prefs.UserStorage
-import com.zhuzichu.base.ext.hideSoftInput
 import com.zhuzichu.base.ext.localeContextWrapper
-import com.zhuzichu.base.ext.toast
 import dagger.android.support.DaggerAppCompatActivity
-import me.jessyan.autosize.AutoSize
 
 import java.util.*
 
@@ -22,7 +18,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     abstract fun setNavGraph(): Int
 
-    private val userStorage: UserStorage by lazy { UserStorage() }
+    val userStorage: UserStorage by lazy { UserStorage() }
 
     val navController by lazy { findNavController(R.id.delegate_container) }
 
@@ -51,7 +47,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         newBase?.let {
             super.attachBaseContext(it.localeContextWrapper(Locale(userStorage.locale!!)))
         }
-
     }
 
     override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {

@@ -5,13 +5,12 @@ import com.uber.autodispose.android.lifecycle.autoDispose
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.ext.*
-import com.zhuzichu.orange.R
 import com.zhuzichu.orange.manager.AccountManager
-import com.zhuzichu.orange.repository.NetRepository
+import com.zhuzichu.orange.repository.remote.RemoteRepository
 import javax.inject.Inject
 
 class ViewModelLogin @Inject constructor(
-    private val netRepository: NetRepository,
+    private val remoteRepository: RemoteRepository,
     private val accountManager: AccountManager
 ) : BaseViewModel() {
 
@@ -19,7 +18,7 @@ class ViewModelLogin @Inject constructor(
     val password = MutableLiveData("18229858146")
 
     val onClickLogin = BindingCommand<Any>({
-        netRepository.login(username.value!!, password.value!!.md5())
+        remoteRepository.login(username.value!!, password.value!!.md5())
             .bindToSchedulers()
             .bindToException()
             .autoLoading(this)

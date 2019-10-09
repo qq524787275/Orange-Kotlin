@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build
 import android.os.LocaleList
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.ConfigurationCompat
 import java.util.*
 
 @Suppress("UNCHECKED_CAST")
@@ -19,9 +17,10 @@ fun <T> Any?.toCast(): T {
     return this as T
 }
 
+@Suppress("DEPRECATION")
 @SuppressLint("ObsoleteSdkInt")
 fun Context.localeContextWrapper(newLocale: Locale): ContextWrapper {
-    var context: Context=this
+    var context: Context = this
     val config = this.resources.configuration
 
     when {
@@ -31,15 +30,15 @@ fun Context.localeContextWrapper(newLocale: Locale): ContextWrapper {
             val localeList = LocaleList(newLocale)
             LocaleList.setDefault(localeList)
             config.setLocales(localeList)
-            context= this.createConfigurationContext(config)
+            context = this.createConfigurationContext(config)
         }
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 -> {
             config.setLocale(newLocale)
-            context= this.createConfigurationContext(config)
+            context = this.createConfigurationContext(config)
         }
         else -> {
-            config.locale=newLocale
-            this.resources.updateConfiguration(config,this.resources.displayMetrics)
+            config.locale = newLocale
+            this.resources.updateConfiguration(config, this.resources.displayMetrics)
         }
     }
     return ContextWrapper(context)

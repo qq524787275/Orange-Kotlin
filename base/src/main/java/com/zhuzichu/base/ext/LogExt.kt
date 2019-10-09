@@ -1,9 +1,9 @@
 package com.zhuzichu.base.ext
 
-import android.util.Log
+import timber.log.Timber
 
 private const val TAG = "zzc"
 
 fun Any.logi(tag: String = TAG) {
-    Log.i(tag, this.toString())
+    Timber.tag(tag).i(this.toString())
 }

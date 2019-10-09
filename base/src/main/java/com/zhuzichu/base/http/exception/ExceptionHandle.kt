@@ -59,7 +59,7 @@ class ExceptionHandle {
                 ex.msg = HttpCode.TIMEOUT_ERROR.msg
                 ex.code = HttpCode.TIMEOUT_ERROR.code
             } else if (e is ResponseThrowable) {
-                ex.msg = e.msg
+                ex.msg = e.msg ?: HttpCode.UNKNOWN.msg
                 ex.code = e.code
             } else {
                 ex.msg = HttpCode.UNKNOWN.msg

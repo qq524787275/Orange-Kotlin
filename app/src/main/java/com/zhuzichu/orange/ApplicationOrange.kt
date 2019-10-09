@@ -11,13 +11,15 @@ import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 
 import io.reactivex.plugins.RxJavaPlugins.setErrorHandler
+import javax.inject.Inject
 
 /**
  * @author Administrator
  */
 class ApplicationOrange : DaggerApplication() {
 
-    private val userStorage: UserStorage by lazy { UserStorage() }
+    @Inject
+    lateinit var userStorage: UserStorage
 
     override fun onCreate() {
         if (BuildConfig.DEBUG) {

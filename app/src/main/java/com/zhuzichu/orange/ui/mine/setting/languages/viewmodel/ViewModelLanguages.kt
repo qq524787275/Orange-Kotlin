@@ -11,15 +11,15 @@ import com.zhuzichu.orange.R
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass
 import javax.inject.Inject
 
-class ViewModelLanguages @Inject constructor() : BaseViewModel() {
+class ViewModelLanguages @Inject constructor(
+    private val userStorage: UserStorage
+) : BaseViewModel() {
 
     companion object {
         private const val LOCAL_EN = "en"
         private const val LOCAL_ZH = "zh"
         private const val LOCAL_AR = "ar"
     }
-
-    private val userStorage: UserStorage by lazy { UserStorage() }
 
     val languagesChangeEvent = SingleLiveEvent<String>()
 
