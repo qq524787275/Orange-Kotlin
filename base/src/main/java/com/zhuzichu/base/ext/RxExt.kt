@@ -1,6 +1,5 @@
 package com.zhuzichu.base.ext
 
-import androidx.lifecycle.ViewModel
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.http.exception.ExceptionHandle
 import io.reactivex.Flowable

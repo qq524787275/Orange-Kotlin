@@ -45,7 +45,7 @@ def getMyProperties(String propertyFilePath) {
  * @param key 查询的key
  * @return value
  */
-def getPropertyByKey(Properties prop, String key) {
+static def getPropertyByKey(Properties prop, String key) {
     // check
     if (prop == null || key == null) {
         throw new Exception('重要值为null！configProp：' + prop + ', key:' + key)
@@ -80,7 +80,7 @@ def getMyConfigProperties(Properties gradleProp, boolean isPrint = false) {
 
     /* 撮合app2地址 (在非beta、release环境下, APP_SERVER_URL若配置合法地址，优先使用) */
     String envName = getRunEnvironment(gradleProp).toUpperCase()
-    if (!('BETA'.equals(envName) || 'RELEASE'.equals(envName))) {
+    if (!('BETA' == envName || 'RELEASE' == envName)) {
         String customServerUrl = getAppServerUrl(gradleProp)
 
         if (customServerUrl.startsWith("http://") || customServerUrl.startsWith("https://")) {
@@ -133,7 +133,7 @@ def getRunEnvironment(Properties gradleProp) {
 /**
  * 获取App名称
  */
-def getAppName(Properties configProp) {
+static def getAppName(Properties configProp) {
     String appName = getPropertyByKey(configProp, 'APP_NAME')
     if (appName == null || appName.trim().isEmpty()) {
         throw new Exception('appName名称为空！')

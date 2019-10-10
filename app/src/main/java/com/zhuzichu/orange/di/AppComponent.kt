@@ -2,7 +2,6 @@ package com.zhuzichu.orange.di
 
 import com.zhuzichu.base.di.ViewModelModule
 import com.zhuzichu.orange.ApplicationOrange
-import com.zhuzichu.orange.ui.main.module.ModuleMain
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

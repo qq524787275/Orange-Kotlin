@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -16,9 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.*
 import com.zhuzichu.base.R
 import com.zhuzichu.base.ext.hideSoftInput
-import com.zhuzichu.base.ext.logi
 import com.zhuzichu.base.ext.toCast
-import com.zhuzichu.base.ext.toast
 import com.zhuzichu.base.widget.loading.LoadingMaker
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType

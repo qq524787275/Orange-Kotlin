@@ -1,6 +1,5 @@
 package com.zhuzichu.orange.ui.home.fragment
 
-import android.app.NotificationManager
 import androidx.navigation.NavDeepLinkBuilder
 import com.jakewharton.rxbinding3.view.clicks
 import com.uber.autodispose.android.autoDispose

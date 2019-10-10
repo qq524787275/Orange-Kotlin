@@ -46,11 +46,11 @@ fun decrypt(sSrc: String, sKey: String?): String? {
         val iv = IvParameterSpec("0102030405060708".toByteArray())
         cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv)
         val encrypted1 = Base64.decode(sSrc, Base64.DEFAULT)// 先用base64解密
-        try {
+        return try {
             val original = cipher.doFinal(encrypted1)
-            return String(original, charset(defaultCharSet))
+            String(original, charset(defaultCharSet))
         } catch (e: Exception) {
-            return null
+            null
         }
 
     } catch (ex: Exception) {
