@@ -33,14 +33,16 @@
         android:id="@+id/fragmentLanguages"
         android:name="com.zhuzichu.orange.ui.mine.setting.languages.fragment.FragmentLanguages"
         android:label="FragmentLanguages"
-        tools:layout="@layout/fragment_languages">
-    </fragment>
+        tools:layout="@layout/fragment_languages" />
 
     <fragment
         android:id="@+id/fragmentTheme"
         android:name="com.zhuzichu.orange.ui.mine.setting.theme.fragment.FragmentTheme"
         android:label="FragmentTheme"
-        tools:layout="@layout/fragment_theme" />
-
+        tools:layout="@layout/fragment_theme">
+        <!--测试 adb shell am start -a android.intent.action.VIEW -d "http://www.zhuzichu.com/theme" -->
+        <deepLink
+            app:uri="www.zhuzichu.com/theme" />
+    </fragment>
 
 </navigation>

@@ -1,14 +1,11 @@
 package com.zhuzichu.orange.ui.main.fragment
 
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import com.zhuzichu.base.base.BaseFragment
 import com.zhuzichu.base.base.DefaultFragmentPagerAdapter
 import com.zhuzichu.base.base.ParamModelDefault
-import com.zhuzichu.base.ext.makeText
 import com.zhuzichu.base.ext.setupWithViewPager
-import com.zhuzichu.base.ext.toStringByResId
 import com.zhuzichu.base.ext.toast
 import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.R
@@ -19,7 +16,6 @@ import com.zhuzichu.orange.ui.home.fragment.FragmentHome
 import com.zhuzichu.orange.ui.main.viewmodel.ViewModelMain
 import com.zhuzichu.orange.ui.mine.main.fragment.FragmentMine
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlin.system.exitProcess
 
 class FragmentMain : BaseFragment<ParamModelDefault, FragmentMainBinding, ViewModelMain>() {
 
@@ -55,11 +51,8 @@ class FragmentMain : BaseFragment<ParamModelDefault, FragmentMainBinding, ViewMo
     private fun initBackListener() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             if (System.currentTimeMillis() - touchTime < waitTime) {
-                requireActivity().finish()
-                Thread {
-                    Thread.sleep(300)
-                    exitProcess(0)
-                }.start()
+                //退出app并清除任务栈
+                requireActivity().finishAndRemoveTask()
             } else {
                 touchTime = System.currentTimeMillis()
                 R.string.press_again_exit.toast(context = requireContext())

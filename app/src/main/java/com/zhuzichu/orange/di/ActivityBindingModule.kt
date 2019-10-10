@@ -44,4 +44,5 @@ abstract class ActivityBindingModule {
         ]
     )
     internal abstract fun accountActivity(): ActivityAccount
+
 }

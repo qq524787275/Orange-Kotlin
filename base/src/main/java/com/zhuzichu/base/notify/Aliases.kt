@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.zhuzichu.base.notify.internal.utils
+package com.zhuzichu.base.notify
 
 import androidx.core.app.NotificationCompat
 

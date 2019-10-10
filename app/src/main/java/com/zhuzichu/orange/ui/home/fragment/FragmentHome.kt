@@ -10,13 +10,16 @@ import com.zhuzichu.orange.BR
 import com.zhuzichu.orange.databinding.FragmentHomeBinding
 import com.zhuzichu.orange.ui.home.viewmodel.ViewModelHome
 import kotlinx.android.synthetic.main.fragment_home.*
-import android.content.Context
 import com.zhuzichu.base.ext.toast
-import com.zhuzichu.base.notify.Notify
+import com.zhuzichu.base.notify.NotifyManager
 import com.zhuzichu.orange.R
+import javax.inject.Inject
 
 
 class FragmentHome : BaseFragment<ParamModelDefault, FragmentHomeBinding, ViewModelHome>() {
+
+    @Inject
+    lateinit var notifyManager: NotifyManager
 
     override fun setLayoutId(): Int = R.layout.fragment_home
 
@@ -37,16 +40,15 @@ class FragmentHome : BaseFragment<ParamModelDefault, FragmentHomeBinding, ViewMo
             .setGraph(R.navigation.navigation_main)
             .setDestination(R.id.fragmentLanguages)
             .createPendingIntent()
-
-        val contentIntent = Notify.with(requireContext())
+        notifyManager.getCreator()
+            .meta {
+                clickIntent = pendingIntent
+            }
             .content {
-                title = "哈哈哈哈"
-            }.asBuilder().setContentIntent(pendingIntent)
-
-        val notificationManager =
-            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        notificationManager.notify(1, contentIntent.build())
+                title = "有一条新消息"
+                text = "Deeplink跳转到切换语言界面"
+            }
+            .show(1)
     }
 
 }

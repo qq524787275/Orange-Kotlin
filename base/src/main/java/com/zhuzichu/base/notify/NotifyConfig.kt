@@ -22,19 +22,20 @@
  * SOFTWARE.
  */
 
-package com.zhuzichu.base.notify.internal.utils
+package com.zhuzichu.base.notify
 
-import androidx.annotation.IntDef
-import com.zhuzichu.base.notify.Notify
+data class NotifyConfig(
+    internal var defaultHeader: Payload.Header = Payload.Header(),
+    internal var defaultAlerting: Payload.Alerts = Payload.Alerts()
+) {
+    fun header(init: Payload.Header.() -> Unit): NotifyConfig {
+        defaultHeader.init()
+        return this
+    }
 
-@DslMarker
-annotation class NotifyScopeMarker
-
-@Retention(AnnotationRetention.SOURCE)
-@IntDef(
-        Notify.IMPORTANCE_MIN,
-        Notify.IMPORTANCE_LOW,
-        Notify.IMPORTANCE_NORMAL,
-        Notify.IMPORTANCE_HIGH,
-        Notify.IMPORTANCE_MAX)
-annotation class NotifyImportance
+    fun alerting(key: String, init: Payload.Alerts.() -> Unit): NotifyConfig {
+        defaultAlerting = defaultAlerting.copy(channelKey = key)
+        defaultAlerting.init()
+        return this
+    }
+}

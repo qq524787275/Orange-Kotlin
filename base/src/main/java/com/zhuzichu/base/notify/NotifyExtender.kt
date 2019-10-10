@@ -22,34 +22,19 @@
  * SOFTWARE.
  */
 
-package com.zhuzichu.base.notify.internal
+package com.zhuzichu.base.notify
 
 import android.os.Bundle
 import android.service.notification.StatusBarNotification
 import androidx.annotation.VisibleForTesting
 import androidx.core.app.NotificationCompat
 
-/**
- * Helper class to add Notify Extensions to a notification. The extensions contain data specific to
- * notifications created by the Notify class, these extensions include data on functionality such as
- * forced stacking.
- *
- * Notify Extensions can be accessed on an existing notification by using the
- * {@code NotifyExtender(Notification)} constructor, and then using property access to get the
- * values.
- */
+
 internal class NotifyExtender : NotificationCompat.Extender {
 
     internal companion object {
-        /**
-         * Identifies the bundle that is associated
-         */
-        private const val EXTRA_NOTIFY_EXTENSIONS = "io.karn.notify.EXTENSIONS"
-
-        // Used to determine if an instance of this class is a valid Notify Notification object.
+        private const val EXTRA_NOTIFY_EXTENSIONS = "com.zhuzichu.base.notifycation.EXTENSIONS"
         private const val VALID = "notify_valid"
-
-        // Keys within EXTRA_NOTIFY_EXTENSIONS for synthetic notification options.
         @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
         internal const val STACKABLE = "stackable"
         @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
@@ -100,11 +85,7 @@ internal class NotifyExtender : NotificationCompat.Extender {
         this.valid = true
     }
 
-    /**
-     * Build a Notify notification from an existing notification.
-     */
     constructor(notification: StatusBarNotification) {
-        // Fetch the extensions if any, from a given notification.
         NotificationCompat.getExtras(notification.notification)?.let { bundle ->
             bundle.getBundle(EXTRA_NOTIFY_EXTENSIONS)?.let {
                 loadConfigurationFromBundle(it)
@@ -142,13 +123,10 @@ internal class NotifyExtender : NotificationCompat.Extender {
     }
 
     private fun loadConfigurationFromBundle(bundle: Bundle) {
-        // Perform an update if exists on all properties.
         valid = bundle.getBoolean(VALID, valid)
-
         stackable = bundle.getBoolean(STACKABLE, stackable)
         stacked = bundle.getBoolean(STACKED, stacked)
         stackKey = bundle.getCharSequence(STACK_KEY, stackKey)
-
         summaryContent = bundle.getCharSequence(SUMMARY_CONTENT, summaryContent)
     }
 
