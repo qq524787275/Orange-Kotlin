@@ -2,7 +2,6 @@ package com.zhuzichu.base.notify
 
 import androidx.core.app.NotificationCompat
 
-
 class NotifyCreator constructor(private val notifyManager: NotifyManager) {
 
     private var meta = Payload.Meta()
