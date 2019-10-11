@@ -3,7 +3,6 @@ apply from: "dependencies.gradle"
 // 引入公共函数
 apply from: "utils.gradle"
 
-
 buildscript {
 
     apply from: "dependencies.gradle"
@@ -27,7 +26,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-
+        maven { url 'https://jitpack.io' }
     }
 }
 

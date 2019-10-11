@@ -10,7 +10,7 @@ import com.zhuzichu.orange.databinding.FragmentHomeBinding
 import com.zhuzichu.orange.ui.home.viewmodel.ViewModelHome
 import kotlinx.android.synthetic.main.fragment_home.*
 import com.zhuzichu.base.ext.toast
-import com.zhuzichu.base.notify.NotifyManager
+import com.zhuzichu.notify.NotifyManager
 import com.zhuzichu.orange.R
 import javax.inject.Inject
 

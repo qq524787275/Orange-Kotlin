@@ -121,4 +121,6 @@ dependencies {
 
     api "me.jessyan:autosize:$libsVersion.autosize"
     api "com.jakewharton.timber:timber:$libsVersion.timber"
+
+    api "com.github.qq524787275:Notify:$libsVersion.notify"
 }

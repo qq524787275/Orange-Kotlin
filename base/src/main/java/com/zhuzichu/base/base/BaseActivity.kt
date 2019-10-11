@@ -60,4 +60,8 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         super.applyOverrideConfiguration(overrideConfiguration)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
 }
