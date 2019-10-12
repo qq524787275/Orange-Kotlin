@@ -5,6 +5,7 @@ import com.uber.autodispose.android.lifecycle.autoDispose
 import com.zhuzichu.base.base.BaseViewModel
 import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.ext.*
+import com.zhuzichu.orange.R
 import com.zhuzichu.orange.manager.AccountManager
 import com.zhuzichu.orange.repository.remote.RemoteRepository
 import javax.inject.Inject
@@ -31,5 +32,9 @@ class ViewModelLogin @Inject constructor(
             }, {
                 handleThrowable(it)
             })
+    })
+
+    val onClickRegister = BindingCommand<Any>({
+        startFragment(R.id.action_fragmentLogin_to_fragmentRegister)
     })
 }

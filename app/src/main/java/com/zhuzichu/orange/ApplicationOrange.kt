@@ -13,9 +13,6 @@ import dagger.android.support.DaggerApplication
 import io.reactivex.plugins.RxJavaPlugins.setErrorHandler
 import javax.inject.Inject
 
-/**
- * @author Administrator
- */
 class ApplicationOrange : DaggerApplication() {
 
     @Inject
@@ -23,6 +20,7 @@ class ApplicationOrange : DaggerApplication() {
 
     override fun onCreate() {
         if (BuildConfig.DEBUG) {
+            enableStrictMode()
         }
         super.onCreate()
         AppGlobal.init(this)

@@ -9,6 +9,7 @@ import com.zhuzichu.base.ext.getVersionCode
 import com.zhuzichu.base.ext.getVersionName
 import com.zhuzichu.base.global.CacheGlobal
 import com.zhuzichu.base.http.converter.GsonConverterFactory
+import com.zhuzichu.orange.BuildConfig
 import com.zhuzichu.orange.repository.remote.RemoteRepository
 import com.zhuzichu.orange.repository.remote.RemoteRepositoryImpl
 import dagger.Module
@@ -52,7 +53,7 @@ class NetworkModule {
             .build()
 
         val builder = Retrofit.Builder()
-            .baseUrl("http://47.111.70.169:8011")
+            .baseUrl(BuildConfig.HOST_APP2)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
 

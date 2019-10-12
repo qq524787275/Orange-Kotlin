@@ -8,6 +8,7 @@ import com.zhuzichu.orange.ui.find.module.ModuleFind
 import com.zhuzichu.orange.ui.home.module.ModuleHome
 import com.zhuzichu.orange.ui.main.module.ModuleMain
 import com.zhuzichu.orange.ui.account.login.module.ModuleLogin
+import com.zhuzichu.orange.ui.account.register.module.ModuleRegister
 import com.zhuzichu.orange.ui.mine.main.module.ModuleMine
 import com.zhuzichu.orange.ui.mine.setting.languages.module.ModuleLanguages
 import com.zhuzichu.orange.ui.mine.setting.main.module.ModuleSetting
@@ -36,11 +37,11 @@ abstract class ActivityBindingModule {
     )
     internal abstract fun mainActivity(): ActivityMain
 
-
     @ActivityScoped
     @ContributesAndroidInjector(
         modules = [
-            ModuleLogin::class
+            ModuleLogin::class,
+            ModuleRegister::class
         ]
     )
     internal abstract fun accountActivity(): ActivityAccount

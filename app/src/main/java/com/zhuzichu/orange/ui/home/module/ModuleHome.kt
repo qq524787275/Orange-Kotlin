@@ -19,6 +19,6 @@ internal abstract class ModuleHome {
     @Binds
     @IntoMap
     @ViewModelKey(ViewModelHome::class)
-    abstract fun bindViewModelCategory(viewModel: ViewModelHome): ViewModel
+    abstract fun bindViewModelHome(viewModel: ViewModelHome): ViewModel
 
 }

@@ -19,27 +19,48 @@ android {
     // App版本号
     def appVersionCode = getAppVersionCode(configProp)
 
+    /* 签名配置 */
+    signingConfigs {
+        /* 开发签名 */
+        MyAppSign {
+            Map<String, String> signConfigs = loadApkSignConfigs(gradleProp)
+            keyAlias signConfigs.ALIAS
+            keyPassword signConfigs.KEY_PWD
+            storeFile file(signConfigs.STORE_FILE)
+            storePassword signConfigs.STORE_PWD
+        }
+    }
+
     defaultConfig {
         applicationId appId
         minSdkVersion getAppMinSdkVersion(gradleProp)
         targetSdkVersion getAppTargetSdkVersion(gradleProp)
         versionCode appVersionCode
         versionName appVersionName
-    }
+        // 签名配置
+        signingConfig signingConfigs.MyAppSign
 
-    signingConfigs {
-        release {
-            storeFile file(RELEASE_STORE_FILE_RELEASE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-        }
+        // renderscript 支持
+        renderscriptTargetApi 18
+        renderscriptSupportModeEnabled true
 
-        debug {
-            storeFile file(RELEASE_STORE_FILE_RELEASE)
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
+        String currentRunEnv = getRunEnvironment(gradleProp)
+        currentRunEnv = currentRunEnv.toUpperCase()
+        boolean isReleaseProduction = 'release'.equalsIgnoreCase(currentRunEnv)
+        for (String key : configProp.keySet()) {
+            if (isWriteToBuildConfig(configProp, key, currentRunEnv)) {
+                String[] configKeyArray = key.split('_')
+                String dataType = getJavaDataType(configKeyArray)
+                String constantName = getConstantName(configKeyArray)
+                String constantValue = getConstantValue(key, configKeyArray, configProp)
+                if (isReleaseProduction) {
+                    if (key.contains('HOST') && (constantValue.contains("http://1") || constantValue.contains("https://1"))) {
+                        throw new Exception('正式站通信地址有问题 ->' + constantName + "=" + constantValue)
+                    }
+                }
+                log('buildConfigField', '开始写入BuildConfig常量：' + dataType + ' ' + constantName + ' = ' + constantValue)
+                buildConfigField dataType, constantName, constantValue
+            }
         }
     }
 
@@ -52,10 +73,9 @@ android {
             //优化apk
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
         debug {
-            signingConfig signingConfigs.release
+
         }
     }
 

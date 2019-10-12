@@ -17,6 +17,20 @@ ext {
     getAppVersionName = this.&getAppVersionName
     // 获取App版本号
     getAppVersionCode = this.&getAppVersionCode
+    // 加载签名配置
+    loadApkSignConfigs = this.&loadApkSignConfigs
+    // 运行环境
+    getRunEnvironment = this.&getRunEnvironment
+    // 是否写入BuildConfig.java文件中
+    isWriteToBuildConfig = this.&isWriteToBuildConfig
+    // 获取Java数据类型
+    getJavaDataType = this.&getJavaDataType
+    // 获取常量名称
+    getConstantName = this.&getConstantName
+    // 获取常量值
+    getConstantValue = this.&getConstantValue
+    // 日志
+    log = this.&log
 }
 
 //========================================================
@@ -38,6 +52,43 @@ def getMyProperties(String propertyFilePath) {
         throw new Exception(propertyFilePath + "文件未找到！")
     }
 }
+
+/**
+ * 获取常量名称(写入BuildConfig.java)
+ */
+def getConstantName(String[] configKeyArray) {
+    StringBuilder constNameSb = new StringBuilder('')
+    for (int i = 4; i < configKeyArray.length; i++) {
+        String splitFlag = (i > 4) ? '_' : ''
+        constNameSb.append(splitFlag + configKeyArray[i])
+    }
+
+    return constNameSb.toString()
+}
+
+/**
+ * 获取常量值(写入BuildConfig.java)
+ */
+def getConstantValue(String key, String[] keyArray, Properties props) {
+    if (keyArray[3].indexOf('STRING') >= 0) {
+        return ('"' + props.get(key) + '"')
+    } else if (keyArray[3].indexOf('CHAR') >= 0) {
+        return ('\'' + props.get(key) + '\'')
+    } else {
+        return props.get(key)
+    }
+}
+
+/**
+ * 获取Java数据类型
+ * @param configKeyArray 配置key 字符串数组
+ * @return 如:String, int, double等
+ */
+def getJavaDataType(String[] configKeyArray) {
+    String dataType = configKeyArray[3]
+    return (dataType.indexOf('STRING') >= 0) ? 'String' : dataType.toLowerCase()
+}
+
 
 /**
  * 根据Key查询properties内容
@@ -244,6 +295,72 @@ def getMyGradleProperties(boolean isPrint = false) {
     }
 
     return gradleProp
+}
+
+/**
+ * 是否写入BuildConfig.java文件中
+ * @param configProp 配置
+ * @param key 关键字, 值如：BUILD_CONFIG_WEEKLY_STRING_HOST_APP2=http://172.31.0.55:2015/
+ * @param currentRunEnv 当前App构建环境
+ * @return true:写入。
+ */
+def isWriteToBuildConfig(Properties configProp, String key, String currentRunEnv) {
+    String buildConfigPrefix = 'BUILD_CONFIG'
+
+    if (key.startsWith(buildConfigPrefix)) {
+        String[] keyArray = key.split("_")
+        String configRunEnv = keyArray[2]
+        //log('isWriteToBuildConfig', 'configRunEnv:' + configRunEnv + ', currentRunEnv:' + currentRunEnv)
+
+        if (key.indexOf(buildConfigPrefix + '_' + currentRunEnv) >= 0) {// 构建环境完全匹配
+            //log('isWriteToBuildConfig', '当前环境匹配, key:' + key)
+            return true
+        } else if (configRunEnv.indexOf('DEFAULT') >= 0) {// 默认值
+            String envPrefix = 'BUILD_CONFIG_' + currentRunEnv
+            String envConfigKey = envPrefix + key.substring('BUILD_CONFIG_DEFAULT'.length())
+            // log('isWriteToBuildConfig', 'DEFAULT参数, oriKey:' + key + ', ePrefix:' + envPrefix + ', eCfgKey:' + envConfigKey + ', isWrite:' + (!props.containsKey(envConfigKey)))
+            return !configProp.containsKey(envConfigKey)
+        } else {// 其它环境
+            // log('isWriteToBuildConfig', '被过滤的key:' + key)
+        }
+    }
+
+    return false
+}
+
+
+//========================================================
+//====================== 签名 =============================
+//========================================================
+/**
+ * 加载Apk签名信息
+ */
+def loadApkSignConfigs(Properties gradleProp) {
+    boolean isReleaseBuildType = 'Release'.equalsIgnoreCase(getBuildType(gradleProp))
+    String releaseSignConfigPath = getPropertyByKey(gradleProp, 'RELEASE_SIGN_CONFIGS_PATH')
+    if (isReleaseBuildType && !releaseSignConfigPath.trim().isEmpty() && !'None'.equalsIgnoreCase(releaseSignConfigPath)) {
+        String alias = getPropertyByKey(configProp, 'SIGN_KEY_ALIAS')
+        String keyPwd = getPropertyByKey(configProp, 'SIGN_KEY_PASSWORD')
+        String storeFile = getPropertyByKey(configProp, 'SIGN_STORE_FILE')
+        String storePwd = getPropertyByKey(configProp, 'SIGN_STORE_PASSWORD')
+
+        if (!alias.isEmpty() && !keyPwd.isEmpty() && !storeFile.isEmpty() && !storePwd.isEmpty()) {
+            log('loadApkSignConfigs', '使用正式站签名')
+            return ['ALIAS': alias, 'KEY_PWD': keyPwd, 'STORE_FILE': storeFile, 'STORE_PWD': storePwd]
+        }
+    }
+    return ['ALIAS': buildAppSign.debug_key_alias, 'KEY_PWD': buildAppSign.debug_key_password, 'STORE_FILE': buildAppSign.debug_store_file, 'STORE_PWD': buildAppSign.debug_store_password]
+}
+
+
+/**
+ * 获取构建方式
+ * @return debug 或 release
+ */
+def getBuildType(Properties gradleProp) {
+    String buildType = getPropertyByKey(gradleProp, 'BUILD_TYPE')
+    log('getBuildType', ('buildType:' + buildType))
+    return buildType.trim()
 }
 
 //========================================================

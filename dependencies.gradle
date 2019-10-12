@@ -2,6 +2,7 @@ ext {
     /* 第三方库版本号 */
     libsVersion = [
             /** ===================== 个人库 ===================== **/
+            //https://github.com/qq524787275/Notify
             notify                  : 'v1.0',
 
             /** ===================== Maven网络库 ===================== **/
@@ -43,5 +44,13 @@ ext {
             dagger                  : "2.24",
             timber                  : "4.7.1"
 
+    ]
+
+    buildAppSign = [
+            /* 开发签名(debug) */
+            debug_key_alias     : 'orange',
+            debug_key_password  : '000000',
+            debug_store_file    : 'keystore-release.jks',
+            debug_store_password: '000000',
     ]
 }

@@ -9,6 +9,15 @@
     <fragment
         android:id="@+id/fragmentLogin"
         android:name="com.zhuzichu.orange.ui.account.login.fragment.FragmentLogin"
-        tools:layout="@layout/fragment_login"
-        android:label="FragmentLogin" />
+        android:label="FragmentLogin"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentRegister"
+            app:destination="@id/fragmentRegister" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.zhuzichu.orange.ui.account.register.fragment.FragmentRegister"
+        android:label="FragmentRegister"
+        tools:layout="@layout/fragment_register" />
 </navigation>
