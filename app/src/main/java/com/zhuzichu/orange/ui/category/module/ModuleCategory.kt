@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.ui.category.module
 
 import androidx.lifecycle.ViewModel
+import com.zhuzichu.base.di.ChildFragmentScoped
 import com.zhuzichu.base.di.ViewModelKey
 import com.zhuzichu.orange.ui.category.fragment.FragmentCategory
 import com.zhuzichu.orange.ui.category.viewmodel.ViewModelCategory
@@ -13,6 +14,7 @@ import dagger.multibindings.IntoMap
 internal abstract class ModuleCategory {
 
     @ContributesAndroidInjector
+    @ChildFragmentScoped
     internal abstract fun contributeFragmentCategory(): FragmentCategory
 
     @Binds

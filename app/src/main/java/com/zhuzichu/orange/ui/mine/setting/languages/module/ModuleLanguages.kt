@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.ui.mine.setting.languages.module
 
 import androidx.lifecycle.ViewModel
+import com.zhuzichu.base.di.FragmentScoped
 import com.zhuzichu.base.di.ViewModelKey
 import com.zhuzichu.orange.ui.mine.setting.languages.fragment.FragmentLanguages
 import com.zhuzichu.orange.ui.mine.setting.languages.viewmodel.ViewModelLanguages
@@ -12,12 +13,13 @@ import dagger.multibindings.IntoMap
 @Module
 internal abstract class ModuleLanguages {
 
+    @FragmentScoped
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentLanguages(): FragmentLanguages
-
 
     @Binds
     @IntoMap
     @ViewModelKey(ViewModelLanguages::class)
     abstract fun bindViewModelLanguages(viewModel: ViewModelLanguages): ViewModel
+
 }

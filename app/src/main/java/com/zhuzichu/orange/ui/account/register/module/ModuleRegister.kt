@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.ui.account.register.module
 
 import androidx.lifecycle.ViewModel
+import com.zhuzichu.base.di.FragmentScoped
 import com.zhuzichu.base.di.ViewModelKey
 import com.zhuzichu.orange.ui.account.register.fragment.FragmentRegister
 import com.zhuzichu.orange.ui.account.register.viewmodel.ViewModelRegister
@@ -13,6 +14,7 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class ModuleRegister {
 
+    @FragmentScoped
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentRegister(): FragmentRegister
 

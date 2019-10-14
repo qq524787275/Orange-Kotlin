@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.ui.home.module
 
 import androidx.lifecycle.ViewModel
+import com.zhuzichu.base.di.ChildFragmentScoped
 import com.zhuzichu.base.di.ViewModelKey
 import com.zhuzichu.orange.ui.home.fragment.FragmentHome
 import com.zhuzichu.orange.ui.home.viewmodel.ViewModelHome
@@ -14,6 +15,7 @@ import dagger.multibindings.IntoMap
 internal abstract class ModuleHome {
 
     @ContributesAndroidInjector
+    @ChildFragmentScoped
     internal abstract fun contributeFragmentHome(): FragmentHome
 
     @Binds

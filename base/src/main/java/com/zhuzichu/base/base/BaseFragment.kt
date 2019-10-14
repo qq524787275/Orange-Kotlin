@@ -42,7 +42,6 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
     abstract fun setLayoutId(): Int
     abstract fun bindVariableId(): Int
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

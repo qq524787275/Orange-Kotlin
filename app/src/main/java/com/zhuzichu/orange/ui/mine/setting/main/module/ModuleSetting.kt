@@ -1,6 +1,7 @@
 package com.zhuzichu.orange.ui.mine.setting.main.module
 
 import androidx.lifecycle.ViewModel
+import com.zhuzichu.base.di.FragmentScoped
 import com.zhuzichu.base.di.ViewModelKey
 import com.zhuzichu.orange.ui.mine.setting.main.fragment.FragmentSetting
 import com.zhuzichu.orange.ui.mine.setting.main.viewmodel.ViewModelSetting
@@ -12,6 +13,7 @@ import dagger.multibindings.IntoMap
 @Module
 internal abstract class ModuleSetting {
 
+    @FragmentScoped
     @ContributesAndroidInjector
     internal abstract fun contributeFragmentSetting(): FragmentSetting
 
