@@ -16,6 +16,7 @@ import androidx.navigation.*
 import com.zhuzichu.base.R
 import com.zhuzichu.base.ext.hideSoftInput
 import com.zhuzichu.base.ext.toCast
+import com.zhuzichu.base.ext.toast
 import com.zhuzichu.base.widget.loading.LoadingMaker
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
@@ -24,6 +25,10 @@ import javax.inject.Inject
 abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding, TViewModel : BaseViewModel> :
     DaggerFragment(),
     IBaseFragment {
+
+    companion object {
+        private const val KEY_PARAM = "KEY_PARAM"
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -48,7 +53,7 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
         savedInstanceState: Bundle?
     ): View? {
         arguments?.let {
-            params = it.getParcelable<BaseParamModel>(Const.PARAMS).toCast()
+            params = it.getParcelable<BaseParamModel>(KEY_PARAM).toCast()
         }
         binding = DataBindingUtil.inflate(
             inflater,
@@ -62,9 +67,7 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initViewDataBinding()
-
         registUIChangeLiveDataCallback()
         initVariable()
         initView()
@@ -95,28 +98,21 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
     }
 
     private fun registUIChangeLiveDataCallback() {
+
         viewModel.uc.startActivityEvent.observe(this, Observer {
-            val clz = it[Const.CLASS] as Class<*>
-            val params = it[Const.PARAMS] as BaseParamModel
-            val isPop = it[Const.POP] as Boolean
-            val requestCode = it[Const.REQUEST_CODE] as Int
-            val options = it[Const.OPTIONS] as Bundle
-            val intent = Intent(activityCtx, clz)
-            intent.putExtra(Const.PARAMS, params)
-            startActivityForResult(intent, requestCode, options)
-            if (isPop) {
+            val intent = Intent(activityCtx, it.clz)
+            intent.putExtra(KEY_PARAM, it.paramModel)
+            startActivityForResult(intent, it.requestCode, it.options)
+            if (it.isPop) {
                 activityCtx.finish()
             }
         })
 
         viewModel.uc.startFragmentEvent.observe(this, Observer {
-            val actionId = it[Const.ACTION_ID] as Int
-            val params = it[Const.PARAMS] as BaseParamModel
-
             navController.navigate(
-                actionId,
-                bundleOf(Const.PARAMS to params),
-                getDefaultNavOptions(actionId)
+                it.actionId,
+                bundleOf(KEY_PARAM to it.paramModel),
+                getDefaultNavOptions(it.actionId)
             )
         })
 
@@ -135,6 +131,14 @@ abstract class BaseFragment<TParams : BaseParamModel, TBinding : ViewDataBinding
             view?.postDelayed({
                 LoadingMaker.dismissLodingDialog()
             }, 150)
+        })
+
+        viewModel.uc.toastStringResEvent.observe(this, Observer {
+            it.toast(context = requireContext())
+        })
+
+        viewModel.uc.toastStringEvent.observe(this, Observer {
+            it.toast(context = requireContext())
         })
     }
 

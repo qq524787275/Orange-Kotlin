@@ -42,7 +42,7 @@ abstract class UseCase<in P, R> {
 
 
     @Throws(RuntimeException::class)
-    protected abstract fun execute(parameters: P): R
+    abstract fun execute(parameters: P): R
 }
 
 operator fun <R> UseCase<Unit, R>.invoke(): LiveData<Result<R>> = this(Unit)

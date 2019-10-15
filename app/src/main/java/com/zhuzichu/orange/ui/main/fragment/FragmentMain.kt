@@ -55,7 +55,7 @@ class FragmentMain : BaseFragment<ParamModelDefault, FragmentMainBinding, ViewMo
                 requireActivity().finishAndRemoveTask()
             } else {
                 touchTime = System.currentTimeMillis()
-                R.string.press_again_exit.toast(context = requireContext())
+                viewModel.toast(R.string.press_again_exit)
             }
         }
     }

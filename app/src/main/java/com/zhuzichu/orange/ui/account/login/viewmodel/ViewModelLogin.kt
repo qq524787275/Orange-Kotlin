@@ -7,12 +7,11 @@ import com.zhuzichu.base.binding.BindingCommand
 import com.zhuzichu.base.ext.*
 import com.zhuzichu.orange.R
 import com.zhuzichu.orange.manager.AccountManager
-import com.zhuzichu.orange.repository.remote.RemoteRepository
+import com.zhuzichu.orange.ui.account.login.domain.ParameterLogin
 import com.zhuzichu.orange.ui.account.login.domain.UseCaseLogin
 import javax.inject.Inject
 
 class ViewModelLogin @Inject constructor(
-    private val remoteRepository: RemoteRepository,
     private val accountManager: AccountManager,
     private val useCaseLogin: UseCaseLogin
 ) : BaseViewModel() {
@@ -20,10 +19,21 @@ class ViewModelLogin @Inject constructor(
     val username = MutableLiveData("18229858146")
     val password = MutableLiveData("18229858146")
 
+    /**
+     * 点击登录
+     */
     val onClickLogin = BindingCommand<Any>({
-        remoteRepository.login(username.value!!, password.value!!.md5())
-            .bindToSchedulers()
-            .bindToException()
+        val username = username.value
+        val password = password.value
+        if (username.isNullOrBlank()) {
+            toast(R.string.username_null_tips)
+            return@BindingCommand
+        }
+        if (password.isNullOrBlank()) {
+            toast(R.string.username_null_tips)
+            return@BindingCommand
+        }
+        useCaseLogin.execute(ParameterLogin(username, password))
             .autoLoading(this)
             .autoDispose(lifecycleOwner)
             .subscribe({
@@ -34,9 +44,11 @@ class ViewModelLogin @Inject constructor(
             }, {
                 handleThrowable(it)
             })
-        useCaseLogin.login(username.value!!, password.value!!.md5())
     })
 
+    /**
+     * 点击注册
+     */
     val onClickRegister = BindingCommand<Any>({
         startFragment(R.id.action_fragmentLogin_to_fragmentRegister)
     })

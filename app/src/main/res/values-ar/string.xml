@@ -30,4 +30,7 @@
     <string name="login">تسجيل الدخول</string>
     <string name="register">تسجيل</string>
 
+    <string name="username_null_tips">اسم المستخدم لا يمكن أن يكون فارغا</string>
+    <string name="password_null_tips">لا يمكن أن تكون كلمة المرور فارغة</string>
+
 </resources>

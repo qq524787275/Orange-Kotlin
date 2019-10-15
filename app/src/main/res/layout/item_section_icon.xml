@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:src="@{item.iconId}"
+            app:url="@{item.iconId}"
             tools:src="@drawable/ic_setting" />
 
         <androidx.appcompat.widget.AppCompatTextView

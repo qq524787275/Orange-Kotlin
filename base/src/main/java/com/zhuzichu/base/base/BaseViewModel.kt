@@ -1,11 +1,11 @@
 package com.zhuzichu.base.base
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import com.zhuzichu.base.event.SingleLiveEvent
-import com.zhuzichu.base.ext.toast
 import com.zhuzichu.base.http.exception.ResponseThrowable
 
 open class BaseViewModel : ViewModel(), IBaseViewModel {
@@ -20,20 +20,18 @@ open class BaseViewModel : ViewModel(), IBaseViewModel {
         options: Bundle = bundleOf(),
         requestCode: Int = 0
     ) {
-        val map = HashMap<String, Any>()
-        map[Const.CLASS] = clz
-        map[Const.PARAMS] = paramModel
-        map[Const.POP] = isPop
-        map[Const.OPTIONS] = options
-        map[Const.REQUEST_CODE] = requestCode
-        uc.startActivityEvent.postValue(map)
+        val playload = Payload.Activity(clz)
+        playload.paramModel = paramModel
+        playload.isPop = isPop
+        playload.options = options
+        playload.requestCode = requestCode
+        uc.startActivityEvent.value = playload
     }
 
     fun startFragment(actionId: Int, paramModel: BaseParamModel = ParamModelDefault()) {
-        val map = HashMap<String, Any>()
-        map[Const.PARAMS] = paramModel
-        map[Const.ACTION_ID] = actionId
-        uc.startFragmentEvent.postValue(map)
+        val playload = Payload.Fragment(actionId)
+        playload.paramModel = paramModel
+        uc.startFragmentEvent.value = playload
     }
 
     fun back() {
@@ -59,12 +57,22 @@ open class BaseViewModel : ViewModel(), IBaseViewModel {
         this.lifecycleOwner = viewLifecycleOwner
     }
 
+    fun toast(text: String?) {
+        uc.toastStringEvent.value = text
+    }
+
+    fun toast(@StringRes id: Int) {
+        uc.toastStringResEvent.value = id
+    }
+
     inner class UIChangeLiveData {
-        val startActivityEvent: SingleLiveEvent<Map<String, Any>> = SingleLiveEvent()
-        val startFragmentEvent: SingleLiveEvent<Map<String, Any>> = SingleLiveEvent()
-        val onBackPressedEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-        val showLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-        val hideLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        internal val startActivityEvent: SingleLiveEvent<Payload.Activity> = SingleLiveEvent()
+        internal val startFragmentEvent: SingleLiveEvent<Payload.Fragment> = SingleLiveEvent()
+        internal val onBackPressedEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        internal val showLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        internal val hideLoadingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+        internal val toastStringEvent: SingleLiveEvent<String?> = SingleLiveEvent()
+        internal val toastStringResEvent: SingleLiveEvent<Int> = SingleLiveEvent()
     }
 
 }

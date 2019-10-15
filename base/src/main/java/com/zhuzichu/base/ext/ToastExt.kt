@@ -10,14 +10,14 @@ import androidx.annotation.NonNull
 import com.zhuzichu.base.R
 import com.zhuzichu.base.global.AppGlobal
 
-fun toast(
+private fun toast(
     message: String?,
     duration: Int = Toast.LENGTH_SHORT,
     context: Context = AppGlobal.context
 ) =
     makeText(context, message, duration).show()
 
-fun String.toast(duration: Int = Toast.LENGTH_SHORT, context: Context = AppGlobal.context): Any {
+fun String?.toast(duration: Int = Toast.LENGTH_SHORT, context: Context = AppGlobal.context): Any {
     return makeText(context, this, duration).apply {
         show()
     }

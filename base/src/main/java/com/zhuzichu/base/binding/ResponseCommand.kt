@@ -1,5 +1,7 @@
 package com.zhuzichu.base.binding
 
+import com.zhuzichu.base.ext.toCast
+
 class ResponseCommand<T, R>(
     private var execute: (() -> R)? = null,
     private var consumer: ((parameter: T) -> R)? = null,
@@ -12,10 +14,9 @@ class ResponseCommand<T, R>(
         return null
     }
 
-    @Suppress("UNCHECKED_CAST")
     fun execute(parameter: Any): R? {
         if (canExecute0()) {
-            consumer?.invoke(parameter as T)
+            consumer?.invoke(parameter.toCast())
         }
         return null
     }

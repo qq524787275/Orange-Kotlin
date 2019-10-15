@@ -1,5 +1,7 @@
 package com.zhuzichu.base.binding
 
+import com.zhuzichu.base.ext.toCast
+
 class BindingCommand<T>(
     private var execute: (() -> Unit)? = null,
     private var consumer: ((parameter: T) -> Unit)? = null,
@@ -11,10 +13,9 @@ class BindingCommand<T>(
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
     fun execute(parameter: Any) {
         if (canExecute0()) {
-            consumer?.invoke(parameter as T)
+            consumer?.invoke(parameter.toCast())
         }
     }
 

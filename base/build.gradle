@@ -79,9 +79,7 @@ dependencies {
     api "androidx.room:room-rxjava2:$libsVersion.room"
 
     api "com.github.bumptech.glide:okhttp3-integration:$libsVersion.glide"
-    api("com.github.bumptech.glide:glide:$libsVersion.glide") {
-        exclude group: "com.android.support"
-    }
+    api "com.github.bumptech.glide:glide:$libsVersion.glide"
 
     api "androidx.navigation:navigation-fragment-ktx:$libsVersion.navigation"
     api "androidx.navigation:navigation-ui-ktx:$libsVersion.navigation"

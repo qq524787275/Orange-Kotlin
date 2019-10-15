@@ -29,4 +29,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
 
+    <string name="username_null_tips">Username can not be empty</string>
+    <string name="password_null_tips">Password can not be empty</string>
+
 </resources>

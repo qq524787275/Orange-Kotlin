@@ -1,16 +1,10 @@
 package com.zhuzichu.base.global
 
 import android.text.format.Formatter
+import com.zhuzichu.base.common.glide.GlideApp
 import com.zhuzichu.base.ext.isSDCardMounted
 import java.io.File
 
-/**
- * Created by Android Studio.
- * Blog: zhuzichu.com
- * User: zhuzichu
- * Date: 2019-07-24
- * Time: 15:08
- */
 object CacheGlobal {
     private const val GLIDE_CACHE_DIR_NAME = "/glide_cache"
 
@@ -69,7 +63,7 @@ object CacheGlobal {
     }
 
 
-    private fun getGlideCacheDir(): File {
+    fun getGlideCacheDir(): File {
         return getDiskCacheDir(GLIDE_CACHE_DIR_NAME)
     }
 
