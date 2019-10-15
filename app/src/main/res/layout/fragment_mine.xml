@@ -5,6 +5,8 @@
 
         <import type="androidx.recyclerview.widget.LinearLayoutManager" />
 
+        <import type="com.zhuzichu.orange.R" />
+
         <variable
             name="viewModel"
             type="com.zhuzichu.orange.ui.mine.main.viewmodel.ViewModelMine" />
@@ -28,18 +30,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_account"
+            app:error="@{R.drawable.ic_account}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            app:onClickCommand="@{viewModel.isLogin()==true?viewModel.onClickEdit:viewModel.onClickLogin}" />
+            app:onClickCommand="@{viewModel.isLogin()==true?viewModel.onClickEdit:viewModel.onClickLogin}"
+            app:url="@{viewModel.isLogin()==true?viewModel.userInfo.avatarUrl:@drawable/ic_account}"
+            tools:src="@drawable/ic_account" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

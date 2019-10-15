@@ -12,6 +12,7 @@ import dagger.android.support.DaggerApplication
 
 import io.reactivex.plugins.RxJavaPlugins.setErrorHandler
 import javax.inject.Inject
+import timber.log.Timber
 
 class ApplicationOrange : DaggerApplication() {
 
@@ -21,6 +22,9 @@ class ApplicationOrange : DaggerApplication() {
     override fun onCreate() {
         if (BuildConfig.DEBUG) {
             enableStrictMode()
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(CrashReportingTree())
         }
         super.onCreate()
         AppGlobal.init(this)
@@ -43,5 +47,11 @@ class ApplicationOrange : DaggerApplication() {
                 .penaltyLog()
                 .build()
         )
+    }
+
+    private class CrashReportingTree : Timber.Tree() {
+        override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+
+        }
     }
 }
